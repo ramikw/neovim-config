@@ -124,15 +124,22 @@ return {
         keys = {
             -- LSP keys
 
-            { "gd",    require("custom-functions").go_to_definition,   desc = "Go To Definition" },
-            { "gi",    vim.lsp.buf.implementation,                    desc = "Go To Implementation" },
-            { "gD",    vim.lsp.buf.declaration,                       desc = "Go To Declaration" },
-            { "<C-h>", require("custom-functions").hover,             desc = "Mouse Hover" },
+            { "gd",    require("custom-functions").go_to_definition, desc = "Go To Definition" },
+            { "gi",    vim.lsp.buf.implementation,                   desc = "Go To Implementation" },
+            { "gD",    vim.lsp.buf.declaration,                      desc = "Go To Declaration" },
+            { "<C-h>", require("custom-functions").hover,            desc = "Mouse Hover" },
+            {
+                "<F2>",
+                function()
+                    vim.lsp.buf.rename()
+                end,
+                desc = "Rename"
+            },
 
             -- Folds keys
 
-            { "zR",    function() require("ufo").openAllFolds() end,  desc = "Open all folds" },
-            { "zM",    function() require("ufo").closeAllFolds() end, desc = "Close all folds" },
+            { "zR", function() require("ufo").openAllFolds() end,  desc = "Open all folds" },
+            { "zM", function() require("ufo").closeAllFolds() end, desc = "Close all folds" },
         }
     },
 }
