@@ -92,6 +92,10 @@ function M.is_nixos()
     return string.find(os_name, "nixos") ~= nil
 end
 
+function M.is_windows()
+    return vim.fn.has("win32") == 1
+end
+
 function M.hover()
     if require("dap").session() == nil then
         vim.lsp.buf.hover({
