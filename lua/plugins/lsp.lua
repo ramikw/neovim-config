@@ -68,6 +68,10 @@ return {
                 vim.lsp.enable(lsp)
             end
 
+            vim.lsp.config("ltex", {
+                cmd_env = { JAVA_OPTS = "-Djdk.xml.totalEntitySizeLimit=0" },
+            })
+
             vim.lsp.config("sqlls", {
                 filetypes = { "sql" },
                 root_dir = function(_)

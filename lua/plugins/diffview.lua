@@ -21,8 +21,10 @@ return {
     opts = {
         enhanced_diff_hl = true,
         hooks = {
-            diff_buf_read = function()
-                vim.opt_local.foldenable = false
+            diff_buf_win_enter = function(bufnr, winid)
+                vim.schedule(function()
+                    vim.wo[winid].foldenable = false
+                end)
             end,
         },
     }
