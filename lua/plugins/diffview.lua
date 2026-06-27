@@ -19,6 +19,11 @@ return {
         },
     },
     opts = {
-        enhanced_diff_hl = true
+        enhanced_diff_hl = true,
+        hooks = {
+            diff_buf_read = function()
+                vim.opt_local.foldenable = false
+            end,
+        },
     }
 }
