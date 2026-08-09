@@ -15,6 +15,7 @@ return {
         },
         config = function()
             local packages = {
+                "angularls",                        -- Angular
                 "bashls",                           -- Bash
                 "bicep",                            -- Bicep
                 "clangd",                           -- C/CPP

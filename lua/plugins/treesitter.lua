@@ -8,6 +8,7 @@ return {
             require("nvim-treesitter").setup(opts)
 
             local ensureInstalled = {
+                "angular",
                 "asm",
                 "bash",
                 "bibtex",

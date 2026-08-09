@@ -41,6 +41,7 @@ return {
             -- LSP
 
             local lsps = {
+                "angularls",
                 "bashls",
                 "clangd",
                 "cssls",
