@@ -10,13 +10,19 @@ return {
         local custom_function = require("custom-functions")
 
         -- C#
-        dap.adapters.coreclr = {
+        local coreclr_adapter = {
             type = "executable",
             command = require("custom-functions").is_nixos() and
                 "netcoredbg" or
                 vim.fn.expand("$MASON/packages/netcoredbg/netcoredbg/netcoredbg.exe"),
             args = { "--interpreter=vscode" },
         }
+        -- function form so configs coming from .vscode/launch.json (see vscode-launch.lua)
+        -- can be missing "args" and still work
+        dap.adapters.coreclr = function(callback, config)
+            config.args = config.args or {}
+            callback(coreclr_adapter)
+        end
         dap.adapters.netcoredbg = dap.adapters.coreclr
 
         dap.configurations.cs = {
@@ -59,7 +65,7 @@ return {
             command = "node",
             args = { vim.fn.expand("$MASON/packages/firefox-debug-adapter/dist/adapter.bundle.js") }
         }
-        dap.adapters["pwa-node"] = {
+        local pwa_node_adapter = {
             type = "server",
             host = "localhost",
             port = "${port}",
@@ -70,6 +76,28 @@ return {
                     "${port}",
                 }
             }
+        }
+        dap.adapters["pwa-node"] = pwa_node_adapter
+
+        -- VS Code's "node-terminal" launch type (see vscode-launch.lua) has no debug
+        -- protocol of its own -- it's just a shell "command" string. Translate it into
+        -- a pwa-node launch here, before pwa-node's own adapter resolves.
+        dap.adapters["node-terminal"] = function(callback, config)
+            local parts = vim.split(config.command, "%s+")
+            config.type = "pwa-node"
+            config.runtimeExecutable = parts[1]
+            config.runtimeArgs = vim.list_slice(parts, 2)
+            config.console = config.console or "integratedTerminal"
+            config.skipFiles = config.skipFiles or { "<node_internals>/**" }
+            callback(pwa_node_adapter)
+        end
+
+        -- Force node processes into a real OS terminal window instead of an
+        -- integrated split, regardless of what "console" a launch config asks for.
+        dap.defaults["pwa-node"].force_external_terminal = true
+        dap.defaults["pwa-node"].external_terminal = {
+            command = "cmd.exe",
+            args = { "/c", "start", "cmd.exe", "/k" },
         }
 
         -- Python
@@ -168,8 +196,9 @@ return {
     lazy = false,
     keys = {
         { "<F5>",  function() require("dap").continue() end,                desc = "Continue Testing" },
+        { "<F6>",  function() require("vscode-launch").pick_and_run_compound() end, desc = "Launch VS Code compound" },
         { "<F7>",  require("custom-functions").conditional_breakpoint,      desc = "Conditional breakpoint" },
-        { "<F8>",  function() require("dap").terminate() end,               desc = "Terminate" },
+        { "<F8>",  function() require("dap").terminate({ all = true }) end, desc = "Terminate All Sessions" },
         { "<F9>",  function() require("dap").toggle_breakpoint() end,       desc = "Toggle Breakpoint" },
         { "<F10>", function() require("dap").step_over() end,               desc = "Step Over" },
         { "<F11>", function() require("dap").step_into() end,               desc = "Step Into" },
