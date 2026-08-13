@@ -73,6 +73,13 @@ return {
                 cmd_env = { JAVA_OPTS = "-Djdk.xml.totalEntitySizeLimit=0" },
             })
 
+            vim.lsp.config("eslint", {
+                root_markers = { ".eslintrc.json" },
+                settings = {
+                    useFlatConfig = false,
+                },
+            })
+
             vim.lsp.config("sqlls", {
                 filetypes = { "sql" },
                 root_dir = function(_)
