@@ -12,9 +12,9 @@ return {
         -- C#
         local coreclr_adapter = {
             type = "executable",
-            command = require("custom-functions").is_nixos() and
-                "netcoredbg" or
-                vim.fn.expand("$MASON/packages/netcoredbg/netcoredbg/netcoredbg.exe"),
+            command = custom_function.is_nixos() and "netcoredbg"
+                or custom_function.is_windows() and vim.fn.expand("$MASON/packages/netcoredbg/netcoredbg/netcoredbg.exe")
+                or vim.fn.expand("$MASON/packages/netcoredbg/netcoredbg"),
             args = { "--interpreter=vscode" },
         }
         -- function form so configs coming from .vscode/launch.json (see vscode-launch.lua)
