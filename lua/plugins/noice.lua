@@ -33,8 +33,6 @@ return {
             enabled = true,
             backend = "nui",
         },
-        presets = {
-        },
         routes = {
             {
                 filter = {
