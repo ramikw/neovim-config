@@ -19,19 +19,9 @@ return {
             view_history = "messages",
             view_search = "virtualtext",
         },
-        -- `messages` (ext_messages) and `cmdline` (ext_cmdline) share the
-        -- same bottom row. Fully disabling `cmdline` while `messages` stays
-        -- on made the message router redraw over that row on every
-        -- keystroke, erasing what you typed. Keeping cmdline enabled but on
-        -- the classic non-floating "cmdline" view (bottom row, no popup)
-        -- avoids that fight while still dropping the popup window.
         cmdline = {
             enabled = true,
             view = "cmdline",
-        },
-        popupmenu = {
-            enabled = true,
-            backend = "nui",
         },
         routes = {
             {

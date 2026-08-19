@@ -1,13 +1,7 @@
--- LSP supporting plugins (lspkind, signature, lazydev, file operations, language clients)
+-- LSP supporting plugins (signature, lazydev, file operations, language clients)
 
 return {
     { "mfussenegger/nvim-jdtls", lazy = true },
-    { "onsails/lspkind.nvim",    lazy = true },
-    {
-        "ray-x/lsp_signature.nvim",
-        event = "InsertEnter",
-        opts = { hint_enable = false },
-    },
     {
         "folke/lazydev.nvim",
         ft = "lua",

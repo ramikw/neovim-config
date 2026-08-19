@@ -16,7 +16,7 @@ return {
             local capabilities = vim.tbl_deep_extend(
                 "force",
                 vim.lsp.protocol.make_client_capabilities(),
-                require("cmp_nvim_lsp").default_capabilities(),
+                require("blink.cmp").get_lsp_capabilities(),
                 require("lsp-file-operations").default_capabilities(),
                 {
                     textDocument = {
@@ -70,7 +70,7 @@ return {
             vim.lsp.config("eslint", {
                 root_markers = { ".eslintrc.json" },
                 settings = {
-                    useFlatConfig = false,
+                    -- useFlatConfig = false,
                 },
             })
 
