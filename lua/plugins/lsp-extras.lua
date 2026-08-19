@@ -27,6 +27,7 @@ return {
     },
     {
         "TheLeoP/powershell.nvim",
+        ft = "ps1",
         ---@type powershell.user_config
         opts = {
             bundle_path = vim.fn.stdpath("data") .. "/mason/packages/powershell-editor-services",
@@ -35,7 +36,7 @@ return {
     {
         "mrcjkb/rustaceanvim",
         version = "^9",
-        lazy = false,
+        ft = "rust",
         config = function()
             ---@type rustaceanvim.Opts
             vim.g.rustaceanvim = {
@@ -51,6 +52,7 @@ return {
     },
     {
         "lervag/vimtex",
+        ft = "tex",
         config = function()
             vim.g.vimtex_quickfix_open_on_warning = 0
             local custom_functions = require("custom-functions")

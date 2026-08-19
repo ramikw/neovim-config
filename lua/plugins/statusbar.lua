@@ -27,9 +27,6 @@ return {
             lualine_x = {},
             lualine_y = {
                 "overseer",
-                function()
-                    return require("lsp-progress").progress()
-                end,
                 "filetype",
             },
             lualine_z = {

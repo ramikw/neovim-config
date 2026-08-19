@@ -193,7 +193,6 @@ return {
         vim.fn.sign_define("DapBreakpoint", { text = "🟥", texthl = "", linehl = "", numhl = "" })
         vim.fn.sign_define("DapStopped", { text = "▶️", texthl = "", linehl = "", numhl = "" })
     end,
-    lazy = false,
     keys = {
         { "<F5>",  function() require("dap").continue() end,                desc = "Continue Testing" },
         { "<F6>",  function() require("vscode-launch").pick_and_run_compound() end, desc = "Launch VS Code compound" },

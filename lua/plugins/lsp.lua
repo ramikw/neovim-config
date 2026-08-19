@@ -124,7 +124,7 @@ return {
                 end,
             })
 
-            vim.api.nvim_create_autocmd({ "InsertLeave" }, {
+            vim.api.nvim_create_autocmd({ "InsertLeave", "BufWritePost" }, {
                 pattern = "*",
                 callback = function()
                     require("custom-functions").update_cs_diagnostics()
