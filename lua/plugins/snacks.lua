@@ -9,6 +9,9 @@ return {
         notifier = {
             enabled = true,
             timeout = 4000,
+            filter = function(notif)
+                return notif.title ~= "boilersharp.nvim"
+            end,
         },
         image = { enabled = true },
         lazygit = {

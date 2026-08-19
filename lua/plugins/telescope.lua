@@ -7,10 +7,6 @@ return {
         "prochri/telescope-all-recent.nvim",
         -- Required by the all recent extension
         "kkharji/sqlite.lua",
-        {
-            "nvim-telescope/telescope-fzf-native.nvim",
-            build = "cmake -S. -Bbuild -DCMAKE_BUILD_TYPE=Release && cmake --build build --config Release --target install",
-        },
     },
     config = function()
         require("telescope").setup {
@@ -38,7 +34,6 @@ return {
         }
 
         require("telescope").load_extension("ui-select")
-        require("telescope").load_extension("fzf")
 
         -- Load this after other extensions.
         if require("custom-functions").is_nixos() then
@@ -62,8 +57,6 @@ return {
         })
     end,
     keys = {
-        { "ff", function() require("telescope.builtin").find_files() end,     desc = "Search Files" },
-        { "fg", function() require("telescope.builtin").live_grep() end,      desc = "RipGrep" },
         { "fb", function() require("telescope.builtin").buffers() end,        desc = "Search Buffers" },
         { "fh", function() require("telescope.builtin").help_tags() end,      desc = "Help Tags" },
         { "fr", function() require("telescope.builtin").registers() end,      desc = "Open Buffer Diagnostics" },

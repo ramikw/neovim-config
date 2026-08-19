@@ -8,5 +8,8 @@ return {
         diff = {
             layout = "side-by-side",
         },
+        explorer = {
+            view_mode = "tree",
+        },
     },
 }

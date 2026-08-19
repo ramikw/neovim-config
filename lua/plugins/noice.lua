@@ -35,5 +35,13 @@ return {
         },
         presets = {
         },
+        routes = {
+            {
+                filter = {
+                    find = "boilersharp",
+                },
+                opts = { skip = true },
+            },
+        },
     },
 }
