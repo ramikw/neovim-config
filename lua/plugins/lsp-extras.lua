@@ -55,13 +55,8 @@ return {
         ft = "tex",
         config = function()
             vim.g.vimtex_quickfix_open_on_warning = 0
-            local custom_functions = require("custom-functions")
-            if custom_functions.is_nixos() then
-                vim.g.vimtex_view_general_viewer = "papers"
-            else
-                vim.g.vimtex_view_general_viewer = "SumatraPDF"
-                vim.g.vimtex_view_general_options = "-reuse-instance -forward-search @tex @line @pdf"
-            end
+            vim.g.vimtex_view_general_viewer = "SumatraPDF"
+            vim.g.vimtex_view_general_options = "-reuse-instance -forward-search @tex @line @pdf"
         end,
     },
 }

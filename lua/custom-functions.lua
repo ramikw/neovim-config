@@ -83,15 +83,6 @@ function M.get_buffer_relative_path()
     end
 end
 
-function M.is_nixos()
-    local handle = io.popen("uname -a")
-    if handle == nil then
-        return false
-    end
-    local os_name = string.lower(handle:read("*a"))
-    return string.find(os_name, "nixos") ~= nil
-end
-
 function M.is_windows()
     return vim.fn.has("win32") == 1
 end
@@ -163,23 +154,6 @@ function M.add_cs_documentation_comment(args)
                 end, 1)
             end,
         })
-    end
-end
-
-function M.update_cs_diagnostics()
-    local clients = vim.lsp.get_clients({ name = "roslyn" })
-    if not clients or #clients == 0 then
-        return
-    end
-    for _, client in ipairs(clients) do
-        for _, buf in ipairs(vim.api.nvim_list_bufs()) do
-            if vim.api.nvim_buf_is_loaded(buf)
-                and #vim.lsp.get_clients({ name = "roslyn", bufnr = buf }) > 0
-            then
-                local params = { textDocument = vim.lsp.util.make_text_document_params(buf) }
-                client:request("textDocument/diagnostic", params, nil, buf)
-            end
-        end
     end
 end
 

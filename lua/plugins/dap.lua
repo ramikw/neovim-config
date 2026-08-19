@@ -12,8 +12,8 @@ return {
         -- C#
         local coreclr_adapter = {
             type = "executable",
-            command = custom_function.is_nixos() and "netcoredbg"
-                or custom_function.is_windows() and vim.fn.expand("$MASON/packages/netcoredbg/netcoredbg/netcoredbg.exe")
+            command = custom_function.is_windows()
+                and vim.fn.expand("$MASON/packages/netcoredbg/netcoredbg/netcoredbg.exe")
                 or vim.fn.expand("$MASON/packages/netcoredbg/netcoredbg"),
             args = { "--interpreter=vscode" },
         }
@@ -102,12 +102,8 @@ return {
 
         -- Python
 
-        if require("custom-functions").is_nixos() then
-            require("dap-python").setup("debugpy")
-        else
-            local debugpy = vim.fn.expand("$MASON/packages/debugpy/venv/Scripts/python.exe")
-            require("dap-python").setup(debugpy)
-        end
+        local debugpy = vim.fn.expand("$MASON/packages/debugpy/venv/Scripts/python.exe")
+        require("dap-python").setup(debugpy)
 
         -- C/C++
 

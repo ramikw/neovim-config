@@ -59,12 +59,6 @@ return {
                 "vimls",
             };
 
-            local custom_function = require("custom-functions")
-            if custom_function.is_nixos() then
-                table.insert(lsps, "nil_ls");
-                table.insert(lsps, "hyprls");
-            end
-
             for _, lsp in ipairs(lsps) do
                 vim.lsp.enable(lsp)
             end
@@ -112,22 +106,13 @@ return {
             vim.lsp.enable("jsonls")
 
             vim.lsp.config("bicep", {
-                cmd = { require("custom-functions").is_nixos() and
-                "Bicep.LangServer" or
-                vim.fn.expand("$MASON/packages/bicep-lsp/bicep-lsp.cmd"), },
+                cmd = { vim.fn.expand("$MASON/packages/bicep-lsp/bicep-lsp.cmd") },
             })
             vim.lsp.enable("bicep")
 
             vim.api.nvim_create_autocmd("LspAttach", {
                 callback = function(args)
                     require("custom-functions").add_cs_documentation_comment(args)
-                end,
-            })
-
-            vim.api.nvim_create_autocmd({ "InsertLeave", "BufWritePost" }, {
-                pattern = "*",
-                callback = function()
-                    require("custom-functions").update_cs_diagnostics()
                 end,
             })
 

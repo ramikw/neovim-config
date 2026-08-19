@@ -80,15 +80,21 @@ return {
                 "zig",
             }
 
-            local alreadyInstalled = require("nvim-treesitter.config").get_installed()
-            local parsersToInstall = vim.iter(ensureInstalled)
-                :filter(function(parser)
-                    return not vim.tbl_contains(alreadyInstalled, parser)
-                end)
-                :totable()
-            require("nvim-treesitter").install(parsersToInstall)
-
-            require("nvim-treesitter").install()
+            -- Deferred: get_installed() stats the parser directory and install()
+            -- reloads the parser table, neither of which needs to sit on the
+            -- startup path. Only call install() when something is missing --
+            -- calling it with nothing to do still pays for a parser reload.
+            vim.schedule(function()
+                local alreadyInstalled = require("nvim-treesitter.config").get_installed()
+                local parsersToInstall = vim.iter(ensureInstalled)
+                    :filter(function(parser)
+                        return not vim.tbl_contains(alreadyInstalled, parser)
+                    end)
+                    :totable()
+                if #parsersToInstall > 0 then
+                    require("nvim-treesitter").install(parsersToInstall)
+                end
+            end)
 
             vim.api.nvim_create_autocmd("FileType", {
                 callback = function()

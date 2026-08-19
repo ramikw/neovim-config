@@ -36,13 +36,9 @@ return {
                 "powershell_es",                    -- PowerShell
                 "vimls",                            -- Vim
             }
-            if require("custom-functions").is_nixos() then
-                packages = {}
-            else
-                local mason_registry = require("mason-registry")
-                if not mason_registry.is_installed("roslyn") then
-                    mason_registry.get_package("roslyn"):install()
-                end
+            local mason_registry = require("mason-registry")
+            if not mason_registry.is_installed("roslyn") then
+                mason_registry.get_package("roslyn"):install()
             end
 
             -- Common packages
@@ -77,12 +73,6 @@ return {
                 "js-debug-adapter",
                 "netcoredbg",
             }
-            if require("custom-functions").is_nixos() then
-                packages = {
-                    "firefox-debug-adapter",
-                    "js-debug-adapter",
-                }
-            end
             require("mason-null-ls").setup({
                 ensure_installed = packages,
                 automatic_installation = true,
