@@ -4,15 +4,6 @@ return {
     { "brenoprata10/nvim-highlight-colors", opts = {} },
     { "HiPhish/rainbow-delimiters.nvim" },
     {
-        "tzachar/local-highlight.nvim",
-        config = function()
-            require("local-highlight").setup({
-                animate = { enabled = false },
-            })
-        end,
-    },
-    { "moll/vim-bbye" },
-    {
         "folke/todo-comments.nvim",
         dependencies = "nvim-lua/plenary.nvim",
         opts = { signs = false },

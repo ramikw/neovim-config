@@ -48,6 +48,6 @@ return {
     keys = {
         { "<C-j>", [[:bp<CR>]],      desc = "Previous Buffer" },
         { "<C-k>", [[:bn<CR>]],      desc = "Next Buffer" },
-        { "<leader>w",   [[:Bdelete<CR>]], desc = "Close Current Buffer" },
+        { "<leader>w",   function() require("snacks").bufdelete.delete() end, desc = "Close Current Buffer" },
     },
 }

@@ -23,6 +23,8 @@ return {
             end,
         },
         image = { enabled = true },
+        indent = { enabled = true, animate = { enabled = false } },
+        words = { enabled = true },
         terminal = {
             win = { height = 0.25 },
         },

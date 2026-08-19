@@ -11,7 +11,6 @@ return {
         "tpope/vim-surround",
         dependencies = { "nvim-treesitter/nvim-treesitter-textobjects" },
     },
-    { "numToStr/Comment.nvim", opts = {} },
     {
         "nmac427/guess-indent.nvim",
         lazy = false,
