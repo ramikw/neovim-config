@@ -59,3 +59,10 @@ vim.api.nvim_set_hl(0, "FloatBorder", { link = "Normal" })
 -- Required for LuaLine: https://github.com/neovim/neovim/pull/17266
 
 vim.opt.laststatus = 3
+
+-- Spelling. Treesitter's @spell captures (see plugins/treesitter.lua) limit
+-- checks to comments/strings/prose instead of scanning whole lines like
+-- spelunker.vim did, so this is both native and faster.
+
+vim.opt.spell = true
+vim.opt.spelllang = "en_us"

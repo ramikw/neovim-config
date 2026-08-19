@@ -18,3 +18,9 @@ map("i", "<A-k>", "<Esc><cmd>:m .-2<CR>==gi", defaultMapOptions)
 map("v", "<A-j>", "xp`[V`]", defaultMapOptions)
 map("v", "<A-k>", "xkP`[V`]", defaultMapOptions)
 
+-- Spelling (native ]s/[s under old spelunker.vim key names; z=, zg, zug are
+-- already Vim's built-in spell commands and need no mapping)
+
+map("n", "zn", "]s", defaultMapOptions)
+map("n", "zN", "[s", defaultMapOptions)
+

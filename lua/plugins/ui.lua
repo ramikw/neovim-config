@@ -4,12 +4,6 @@ return {
     { "brenoprata10/nvim-highlight-colors", opts = {} },
     { "HiPhish/rainbow-delimiters.nvim" },
     {
-        "mhinz/vim-startify",
-        config = function()
-            vim.g.startify_change_to_dir = 0
-        end,
-    },
-    {
         "tzachar/local-highlight.nvim",
         config = function()
             require("local-highlight").setup({

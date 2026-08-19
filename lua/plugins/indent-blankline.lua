@@ -8,7 +8,7 @@ return {
                 show_end = false,
             },
             exclude = {
-                filetypes = { "startify" }
+                filetypes = { "snacks_dashboard" }
             },
         }
         hooks.register(hooks.type.SCOPE_HIGHLIGHT, hooks.builtin.scope_highlight_from_extmark)

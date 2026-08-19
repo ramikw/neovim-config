@@ -1,6 +1,6 @@
 return {
     "nvim-lualine/lualine.nvim",
-    dependencies = { "kyazdani42/nvim-web-devicons" },
+    dependencies = { "nvim-tree/nvim-web-devicons" },
     opts = {
         options = {
             disabled_filetypes = {
@@ -11,7 +11,7 @@ return {
                 "neo-tree",
                 "neotest-summary",
                 "snacks_terminal",
-                "startify",
+                "snacks_dashboard",
                 "grug-far",
             },
             section_separators = { right = "", left = ""},
