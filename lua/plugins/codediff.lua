@@ -2,7 +2,7 @@ return {
     "esmuellert/codediff.nvim",
     cmd = "CodeDiff",
     keys = {
-        { "<leader>g", "<cmd>CodeDiff<CR>", desc = "Toggle Diff View" },
+        { "<leader>g", function() vim.cmd.CodeDiff() end, desc = "Toggle Diff View" },
     },
     opts = {
         diff = {

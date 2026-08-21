@@ -65,7 +65,9 @@ local function run_compound(data, compound)
     end
 
     if compound.preLaunchTask then
-        require("overseer").run_task({ name = compound.preLaunchTask }, function(task, err)
+        -- autostart = false so the subscriptions below are in place before the task
+        -- runs; overseer starts the task before invoking this callback otherwise.
+        require("overseer").run_task({ name = compound.preLaunchTask, autostart = false }, function(task, err)
             if not task then
                 vim.notify(
                     "Could not start task '" .. compound.preLaunchTask .. "': " .. tostring(err),
@@ -73,8 +75,20 @@ local function run_compound(data, compound)
                 )
                 return
             end
-            task:subscribe("on_complete", function(_, status)
-                if status == require("overseer.constants").STATUS.SUCCESS then
+
+            local STATUS = require("overseer.constants").STATUS
+
+            -- A background/watch task (problemMatcher with a background end pattern)
+            -- never completes, so it only ever reports through on_result. A plain task
+            -- with a problemMatcher fires both, hence the one-shot guard.
+            local done = false
+            local function launch_once(ok)
+                if done then
+                    return
+                end
+                done = true
+
+                if ok then
                     launch_all()
                 else
                     vim.notify(
@@ -82,7 +96,18 @@ local function run_compound(data, compound)
                         vim.log.levels.ERROR
                     )
                 end
+            end
+
+            task:subscribe("on_complete", function(_, status)
+                launch_once(status == STATUS.SUCCESS)
+                return false
             end)
+            task:subscribe("on_result", function()
+                launch_once(task.status ~= STATUS.FAILURE)
+                return false
+            end)
+
+            task:start()
         end)
     else
         launch_all()

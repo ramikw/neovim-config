@@ -13,7 +13,7 @@ return {
         lazy = true,
         cmd = { "Outline", "OutlineOpen" },
         keys = {
-            { "<leader>u", "<cmd>Outline<CR>", desc = "Toggle outline" },
+            { "<leader>u", function() require("outline").toggle() end, desc = "Toggle outline" },
         },
         opts = {
             outline_window = { show_cursorline = true },

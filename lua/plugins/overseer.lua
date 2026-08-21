@@ -4,6 +4,7 @@ return {
         dap = false,
     },
     keys = {
-        { "<leader>v", "<cmd>OverseerToggle<cr>", desc = "Toggle Overseer" },
+        { "<leader>v", function() require("overseer").toggle() end,   desc = "Toggle Overseer" },
+        { "<leader>b", function() require("overseer").run_task() end, desc = "Run Overseer Task" },
     },
 }

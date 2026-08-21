@@ -18,21 +18,26 @@ return {
         },
     },
     keys = {
-        { "<leader>ac", "<cmd>ClaudeCode<cr>",            desc = "Toggle Claude" },
-        { "<leader>af", "<cmd>ClaudeCodeFocus<cr>",       desc = "Focus Claude" },
-        { "<leader>ar", "<cmd>ClaudeCode --resume<cr>",   desc = "Resume Claude" },
-        { "<leader>aC", "<cmd>ClaudeCode --continue<cr>", desc = "Continue Claude" },
-        { "<leader>am", "<cmd>ClaudeCodeSelectModel<cr>", desc = "Select Claude model" },
-        { "<leader>ab", "<cmd>ClaudeCodeAdd %<cr>",       desc = "Add current buffer" },
-        { "<leader>as", "<cmd>ClaudeCodeSend<cr>",        mode = "v",                  desc = "Send to Claude" },
+        { "<leader>ac", function() require("claudecode.terminal").simple_toggle({}) end,               desc = "Toggle Claude" },
+        { "<leader>af", function() require("claudecode.terminal").focus_toggle({}) end,                desc = "Focus Claude" },
+        { "<leader>ar", function() require("claudecode.terminal").simple_toggle({}, "--resume") end,   desc = "Resume Claude" },
+        { "<leader>aC", function() require("claudecode.terminal").simple_toggle({}, "--continue") end, desc = "Continue Claude" },
+        { "<leader>am", function() require("claudecode").open_with_model() end,                        desc = "Select Claude model" },
+        {
+            "<leader>ab",
+            function()
+                require("claudecode").send_at_mention(vim.fn.expand("%:p"), nil, nil, "ClaudeCodeAdd")
+            end,
+            desc = "Add current buffer",
+        },
+        { "<leader>as", "<cmd>ClaudeCodeSend<cr>", mode = "v", desc = "Send to Claude" },
         {
             "<leader>as",
             "<cmd>ClaudeCodeTreeAdd<cr>",
             desc = "Add file",
             ft = { "snacks_picker_list", "oil", "minifiles", "netrw" },
         },
-        -- Diff management
-        { "<leader>aa", "<cmd>ClaudeCodeDiffAccept<cr>", desc = "Accept diff" },
-        { "<leader>ad", "<cmd>ClaudeCodeDiffDeny<cr>",   desc = "Deny diff" },
+        { "<leader>aa", function() require("claudecode.diff").accept_current_diff() end, desc = "Accept diff" },
+        { "<leader>ad", function() require("claudecode.diff").deny_current_diff() end,   desc = "Deny diff" },
     },
 }
