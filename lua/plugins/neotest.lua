@@ -14,6 +14,7 @@ return {
             "rcasia/neotest-java",
             "marilari88/neotest-vitest",
             "mrcjkb/rustaceanvim",
+            "stevearc/overseer.nvim",
         },
         config = function()
             require("neotest").setup({
@@ -23,7 +24,14 @@ return {
                     require("neotest-vstest"),
                     require("rustaceanvim.neotest"),
                     require("neotest-vitest"),
-                }
+                },
+                consumers = {
+                    overseer = require("neotest.consumers.overseer"),
+                },
+                overseer = {
+                    enabled = true,
+                    force_default = true,
+                },
             })
         end,
         keys = {
