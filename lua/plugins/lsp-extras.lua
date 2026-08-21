@@ -12,14 +12,6 @@ return {
         },
     },
     {
-        "antosha417/nvim-lsp-file-operations",
-        dependencies = {
-            "nvim-lua/plenary.nvim",
-            "nvim-neo-tree/neo-tree.nvim",
-        },
-        opts = {},
-    },
-    {
         "TheLeoP/powershell.nvim",
         ft = "ps1",
         ---@type powershell.user_config

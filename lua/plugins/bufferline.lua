@@ -32,7 +32,7 @@ return {
                 max_name_length = max_name_length,
                 offsets = {
                     {
-                        filetype = "neo-tree",
+                        filetype = "snacks_picker_list",
                         text = "File Explorer",
                         highlight = "Directory",
                         separator = true,
