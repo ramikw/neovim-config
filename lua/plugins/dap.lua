@@ -25,6 +25,29 @@ return {
         end
         dap.adapters.netcoredbg = dap.adapters.coreclr
 
+        -- netcoredbg on Windows only resolves breakpoints when the source path
+        -- uses backslashes, and buffer names in nvim always use forward slashes.
+        -- Without this, every breakpoint stays unverified with "No symbols have
+        -- been loaded for this document". Paths netcoredbg sends back are
+        -- normalized by nvim itself, so only the outgoing direction needs fixing.
+        if custom_function.is_windows() then
+            dap.listeners.on_session["netcoredbg-backslash-paths"] = function(_, session)
+                local type = session and session.config and session.config.type
+                -- on_session fires again whenever dap switches active session
+                if (type ~= "coreclr" and type ~= "netcoredbg") or session.netcoredbg_paths_patched then
+                    return
+                end
+                session.netcoredbg_paths_patched = true
+                local request = session.request
+                session.request = function(self, command, arguments, on_result)
+                    if command == "setBreakpoints" and arguments.source and arguments.source.path then
+                        arguments.source.path = arguments.source.path:gsub("/", "\\")
+                    end
+                    return request(self, command, arguments, on_result)
+                end
+            end
+        end
+
         dap.configurations.cs = {
             {
                 type = "coreclr",
