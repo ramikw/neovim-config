@@ -8,7 +8,7 @@ return {
             "nvim-lua/plenary.nvim",
             "nvim-treesitter/nvim-treesitter",
             "antoinemadec/FixCursorHold.nvim",
-            "nsidorenco/neotest-vstest",
+            "GustavEikaas/easy-dotnet.nvim",
             "nvim-neotest/neotest-python",
             "nvim-neotest/neotest-jest",
             "rcasia/neotest-java",
@@ -21,7 +21,7 @@ return {
                 adapters = {
                     require("neotest-jest"),
                     require("neotest-python"),
-                    require("neotest-vstest"),
+                    require("easy-dotnet.neotest"),
                     require("rustaceanvim.neotest"),
                     require("neotest-vitest"),
                 },

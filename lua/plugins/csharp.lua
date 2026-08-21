@@ -1,25 +1,61 @@
--- C# tooling
+-- C# / .NET tooling
+--
+-- easy-dotnet owns the whole .NET setup: it manages the Roslyn language server
+-- (installed as a global dotnet tool), the test runner backing the neotest
+-- adapter (see neotest.lua) and the debug adapter it registers with nvim-dap.
+--
+-- Requires the companion server: dotnet tool install -g EasyDotnet
 
 return {
     {
-        "DestopLine/boilersharp.nvim",
-        ---@type boilersharp.Config
-        opts = {
-            namespace = {
-                use_file_scoped = "always",
-            },
+        "GustavEikaas/easy-dotnet.nvim",
+        dependencies = {
+            "nvim-lua/plenary.nvim",
+            "mfussenegger/nvim-dap",
+            "folke/snacks.nvim",
         },
-    },
-    {
-        "seblyng/roslyn.nvim",
-        ---@module "roslyn.config"
-        ---@type RoslynNvimConfig
+        ft = { "cs", "fsharp", "xml", "csproj", "fsproj", "sln", "razor" },
         opts = {
-            extensions = {
+            lsp = {
+                enabled = true,
+                preload_roslyn = true,
+                enhanced_rename = true,
+                create_type_from_usage = true,
+                -- enhanced_rename and create_type_from_usage need the extension
+                easy_dotnet_extension_enabled = true,
+                restart_roslyn_on_branch_change = true,
+                -- no "N references" codelens above members
+                auto_refresh_codelens = false,
+                config = {
+                    settings = {
+                        ["csharp|code_lens"] = {
+                            dotnet_enable_references_code_lens = false,
+                        },
+                    },
+                },
                 razor = {
                     enabled = false,
-                }
-            }
+                },
+            },
+            auto_bootstrap_namespace = {
+                enabled = true,
+                type = "file_scoped",
+            },
+            diagnostics = {
+                default_severity = "warning",
+                setqflist = false,
+            },
+            test_runner = {
+                neotest_integration = true,
+            },
+            debugger = {
+                engine = "netcoredbg",
+                auto_register_dap = true,
+            },
         },
-    }
+        keys = {
+            { "<leader>n", function() require("easy-dotnet").run_default() end,   desc = "Run default .NET project" },
+            { "<leader>m", function() require("easy-dotnet").debug_default() end, desc = "Debug default .NET project" },
+        },
+    },
 }

@@ -23,13 +23,5 @@ return {
             enabled = true,
             view = "cmdline",
         },
-        routes = {
-            {
-                filter = {
-                    find = "boilersharp",
-                },
-                opts = { skip = true },
-            },
-        },
     },
 }

@@ -35,7 +35,21 @@ return {
                     follow_file = false, -- only reveal the current file via <leader>e
                     hidden = true,  -- show dotfiles
                     ignored = true, -- show gitignored files
-                    win = { list = { keys = { ["E"] = "explorer_focus" } } },
+                    win = {
+                        list = {
+                            keys = {
+                                ["E"] = "explorer_focus",
+                                ["A"] = "explorer_add_dotnet",
+                            },
+                        },
+                    },
+                    actions = {
+                        -- "a" stays snacks' plain file/dir add, "A" scaffolds from
+                        -- a dotnet template and registers it in the solution
+                        explorer_add_dotnet = function(picker)
+                            require("easy-dotnet").create_item(picker:dir())
+                        end,
+                    },
                 },
             },
             layouts = {
@@ -62,9 +76,6 @@ return {
         notifier = {
             enabled = true,
             timeout = 4000,
-            filter = function(notif)
-                return notif.title ~= "boilersharp.nvim"
-            end,
         },
         image = { enabled = true },
         indent = { enabled = true, animate = { enabled = false } },

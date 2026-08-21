@@ -4,7 +4,6 @@ return {
         opts = {
             registries = {
                 "github:mason-org/mason-registry",
-                "github:Crashdummyy/mason-registry",
             },
         }
     },
@@ -36,10 +35,6 @@ return {
                 "powershell_es",                    -- PowerShell
                 "vimls",                            -- Vim
             }
-            local mason_registry = require("mason-registry")
-            if not mason_registry.is_installed("roslyn") then
-                mason_registry.get_package("roslyn"):install()
-            end
 
             -- Common packages
             table.insert(packages, "sqlls")  -- SQL

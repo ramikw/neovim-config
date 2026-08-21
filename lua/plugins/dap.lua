@@ -48,39 +48,6 @@ return {
             end
         end
 
-        dap.configurations.cs = {
-            {
-                type = "coreclr",
-                name = "Launch - netcoredbg",
-                request = "launch",
-                program = function()
-                    vim.cmd [[!dotnet build]]
-
-                    local current_file_path = vim.api.nvim_buf_get_name(0)
-                    local cwd = vim.fn.getcwd()
-
-                    -- The index of the first / after cwd.
-                    local end_index = string.find(current_file_path, "/", string.len(cwd) + 2)
-                    local dll_path
-                    if end_index == nil then
-                        local project_name = string.sub(cwd, string.find(cwd, "/[^/]*$") + 1)
-                        dll_path = cwd .. "/bin/Debug/net8.0/" .. project_name .. ".dll"
-                    else
-                        local project_name = string.sub(current_file_path, string.len(cwd) + 2, end_index - 1)
-                        dll_path = cwd .. "/" .. project_name .. "/bin/Debug/net8.0/" .. project_name .. ".dll"
-                    end
-
-                    return custom_function.return_if_exists_else_ask(dll_path)
-                end,
-            },
-            {
-                type = "coreclr",
-                name = "Attach to process",
-                request = "attach",
-                processId = "${command:pickProcess}"
-            }
-        }
-
         -- Firefox
 
         dap.adapters.firefox = {

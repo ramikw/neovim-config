@@ -110,12 +110,6 @@ return {
             })
             vim.lsp.enable("bicep")
 
-            vim.api.nvim_create_autocmd("LspAttach", {
-                callback = function(args)
-                    require("custom-functions").add_cs_documentation_comment(args)
-                end,
-            })
-
             require("ufo").setup()
         end,
         keys = {
