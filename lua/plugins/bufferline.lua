@@ -32,8 +32,8 @@ return {
                 max_name_length = max_name_length,
                 offsets = {
                     {
-                        filetype = "snacks_picker_list",
-                        text = "File Explorer",
+                        filetype = "snacks_layout_box",
+                        text = "Explorer",
                         highlight = "Directory",
                         separator = true,
                     },
