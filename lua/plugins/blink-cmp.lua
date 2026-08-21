@@ -1,7 +1,7 @@
 return {
     "saghen/blink.cmp",
     version = "1.*",
-    event = "InsertEnter",
+    event = { "InsertEnter", "CmdlineEnter" },
     dependencies = {
         { "xzbdmw/colorful-menu.nvim", opts = {} },
     },
@@ -52,6 +52,12 @@ return {
 
         cmdline = {
             enabled = true,
+            completion = {
+                -- blink only shows the cmdline menu inside the command window by
+                -- default, falling back to ghost text on the ":" line itself.
+                menu = { auto_show = true },
+                ghost_text = { enabled = false },
+            },
         },
 
         signature = { enabled = true },

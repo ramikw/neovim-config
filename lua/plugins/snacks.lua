@@ -25,6 +25,9 @@ return {
                 { section = "startup" },
             },
         },
+        profiler = {
+            enabled = true,
+        },
         picker = {
             layout = { preset = "default" },
             sources = {
