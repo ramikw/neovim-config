@@ -1,6 +1,8 @@
 return {
     "stevearc/overseer.nvim",
-    opts = {},
+    opts = {
+        dap = false,
+    },
     keys = {
         { "<leader>v", "<cmd>OverseerToggle<cr>", desc = "Toggle Overseer" },
     },

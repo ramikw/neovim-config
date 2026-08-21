@@ -188,11 +188,14 @@ return {
 
         vim.fn.sign_define("DapBreakpoint", { text = "🟥", texthl = "", linehl = "", numhl = "" })
         vim.fn.sign_define("DapStopped", { text = "▶️", texthl = "", linehl = "", numhl = "" })
+
+        -- Adding overseer integration
+        require("overseer").enable_dap()
     end,
     keys = {
         { "<F5>",  function() require("dap").continue() end,                desc = "Continue Testing" },
         { "<F6>",  function() require("vscode-launch").pick_and_run_compound() end, desc = "Launch VS Code compound" },
-        { "<F7>",  require("custom-functions").conditional_breakpoint,      desc = "Conditional breakpoint" },
+        { "<F7>",  function() require("custom-functions").conditional_breakpoint() end, desc = "Conditional breakpoint" },
         { "<F8>",  function() require("dap").terminate({ all = true }) end, desc = "Terminate All Sessions" },
         { "<F9>",  function() require("dap").toggle_breakpoint() end,       desc = "Toggle Breakpoint" },
         { "<F10>", function() require("dap").step_over() end,               desc = "Step Over" },
