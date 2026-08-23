@@ -4,6 +4,14 @@ return {
     { "brenoprata10/nvim-highlight-colors", opts = {} },
     { "HiPhish/rainbow-delimiters.nvim" },
     {
+        "nvim-mini/mini.icons",
+        lazy = false,
+        config = function()
+            require("mini.icons").setup()
+            require("mini.icons").mock_nvim_web_devicons()
+        end,
+    },
+    {
         "folke/todo-comments.nvim",
         dependencies = "nvim-lua/plenary.nvim",
         opts = { signs = false },

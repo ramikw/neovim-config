@@ -1,6 +1,6 @@
 return {
     "folke/trouble.nvim",
-    dependencies = "nvim-tree/nvim-web-devicons",
+    dependencies = "nvim-mini/mini.icons",
     opts = {
         action_keys = {
             jump = { "<tab>", "<2-leftmouse>" },

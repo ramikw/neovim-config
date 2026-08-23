@@ -54,23 +54,20 @@ return {
         end
     },
     {
-        "jay-babu/mason-null-ls.nvim",
+        "WhoIsSethDaniel/mason-tool-installer.nvim",
         dependencies = {
             "mason-org/mason.nvim",
-            "nvimtools/none-ls.nvim",
         },
         config = function()
-            local packages = {
-                "bibtex-tidy",
-                "codelldb",
-                "debugpy",
-                "firefox-debug-adapter",
-                "js-debug-adapter",
-                "netcoredbg",
-            }
-            require("mason-null-ls").setup({
-                ensure_installed = packages,
-                automatic_installation = true,
+            require("mason-tool-installer").setup({
+                ensure_installed = {
+                    "bibtex-tidy",
+                    "codelldb",
+                    "debugpy",
+                    "firefox-debug-adapter",
+                    "js-debug-adapter",
+                    "netcoredbg",
+                },
             })
         end,
     }

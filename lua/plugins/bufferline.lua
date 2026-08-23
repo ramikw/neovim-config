@@ -3,7 +3,7 @@ local max_name_length = 34
 return {
     "akinsho/bufferline.nvim",
     version = "*",
-    dependencies = "nvim-tree/nvim-web-devicons",
+    dependencies = "nvim-mini/mini.icons",
     lazy = false,
     config = function()
         local bufferline = require("bufferline")
