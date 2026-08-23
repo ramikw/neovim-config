@@ -1,11 +1,3 @@
--- C# / .NET tooling
---
--- easy-dotnet owns the whole .NET setup: it manages the Roslyn language server
--- (installed as a global dotnet tool), the test runner backing the neotest
--- adapter (see neotest.lua) and the debug adapter it registers with nvim-dap.
---
--- Requires the companion server: dotnet tool install -g EasyDotnet
-
 return {
     {
         "GustavEikaas/easy-dotnet.nvim",

@@ -55,6 +55,7 @@ vim.cmd([[
 
 vim.o.winborder = "rounded"
 vim.api.nvim_set_hl(0, "FloatBorder", { link = "Normal" })
+vim.opt.wrap = true
 
 -- Required for LuaLine: https://github.com/neovim/neovim/pull/17266
 
