@@ -1,7 +1,6 @@
 -- LSP supporting plugins (signature, lazydev, file operations, language clients)
 
 return {
-    { "mfussenegger/nvim-jdtls", lazy = true },
     {
         "folke/lazydev.nvim",
         ft = "lua",

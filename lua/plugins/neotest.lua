@@ -11,7 +11,6 @@ return {
             "GustavEikaas/easy-dotnet.nvim",
             "nvim-neotest/neotest-python",
             "nvim-neotest/neotest-jest",
-            "rcasia/neotest-java",
             "marilari88/neotest-vitest",
             "mrcjkb/rustaceanvim",
             "stevearc/overseer.nvim",
