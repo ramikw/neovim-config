@@ -86,9 +86,6 @@ return {
         lazygit = {
             enabled = true,
             win = { height = 0.9, width = 0.9 },
-            theme = {
-                selectedLineBgColor = { bg = "CursorLine" }
-            }
         },
     },
 
