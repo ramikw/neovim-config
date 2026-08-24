@@ -12,9 +12,15 @@ return {
         end,
     },
     {
-        "folke/todo-comments.nvim",
-        dependencies = "nvim-lua/plenary.nvim",
-        opts = { signs = false },
+        "nvim-mini/mini.hipatterns",
+        opts = {
+            highlighters = {
+                fixme = { pattern = "%f[%w]()FIXME()%f[%W]", group = "MiniHipatternsFixme" },
+                hack = { pattern = "%f[%w]()HACK()%f[%W]", group = "MiniHipatternsHack" },
+                todo = { pattern = "%f[%w]()TODO()%f[%W]", group = "MiniHipatternsTodo" },
+                note = { pattern = "%f[%w]()NOTE()%f[%W]", group = "MiniHipatternsNote" },
+            },
+        },
     },
     {
         "hedyhli/outline.nvim",

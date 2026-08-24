@@ -8,7 +8,15 @@ return {
         }
     },
     keys = {
-        { "<leader>p", [[:Trouble diagnostics focus=true<CR>]], desc = "Open Project Diagnostics" },
-        { "<leader>x", [[:Trouble diagnostics focus filter.buf=0<CR>]], desc = "Open Buffer Diagnostics" },
+        {
+            "<leader>p",
+            function() require("trouble").open({ mode = "diagnostics", focus = true }) end,
+            desc = "Open Project Diagnostics",
+        },
+        {
+            "<leader>x",
+            function() require("trouble").open({ mode = "diagnostics", focus = true, filter = { buf = 0 } }) end,
+            desc = "Open Buffer Diagnostics",
+        },
     },
 }

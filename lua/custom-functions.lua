@@ -27,17 +27,17 @@ function M.file_exists(name)
 end
 
 function M.load_coverage()
-    vim.cmd("CoverageClear")
-    vim.cmd("Coverage")
+    require("coverage").clear()
+    require("coverage").load()
 end
 
 function M.show_coverage_summary()
     M.load_coverage()
-    vim.cmd("CoverageSummary")
+    require("coverage").summary()
 end
 
 function M.toggle_test_summary()
-    vim.cmd("Neotest summary")
+    require("neotest").summary.toggle()
 end
 
 function M.run_marked_tests()
