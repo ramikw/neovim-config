@@ -8,6 +8,15 @@ return {
         -- instead of noice's own notify view.
     },
     opts = {
+        lsp = {
+            override = {
+                ["vim.lsp.util.convert_input_to_markdown_lines"] = true,
+                ["vim.lsp.util.stylize_markdown"] = true,
+            },
+            hover = {
+                enabled = true,
+            },
+        },
         notify = {
             enabled = false,
         },
@@ -23,5 +32,8 @@ return {
             enabled = true,
             view = "cmdline",
         },
+        presets = {
+            lsp_doc_border = true,
+        }
     },
 }

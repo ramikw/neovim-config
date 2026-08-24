@@ -83,17 +83,6 @@ function M.is_windows()
     return vim.fn.has("win32") == 1
 end
 
-function M.hover()
-    if require("dap").session() == nil then
-        vim.lsp.buf.hover({
-            max_width = 80,
-            max_height = 20,
-        })
-    else
-        require("dap.ui.widgets").hover()
-    end
-end
-
 function M.conditional_breakpoint()
     vim.ui.input({ prompt = "Condition" }, function(condition)
         if condition ~= nil and string.len(condition) > 0 then
