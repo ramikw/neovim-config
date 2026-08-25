@@ -183,7 +183,7 @@ return {
         require("overseer").enable_dap()
     end,
     keys = {
-        { "<F4>",  function() require("dap.ui.widgets").hover() end,        desc = "Debug Hover" },
+        { "<leader>dh", function() require("dap.ui.widgets").hover() end,   desc = "Debug Hover" },
         { "<F5>",  function() require("dap").continue() end,                desc = "Continue Testing" },
         { "<F6>",  function() require("vscode-launch").pick_and_run_compound() end, desc = "Launch VS Code compound" },
         { "<F7>",  function() require("custom-functions").conditional_breakpoint() end, desc = "Conditional breakpoint" },
