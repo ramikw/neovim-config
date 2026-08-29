@@ -52,7 +52,6 @@ return {
                 "html",
                 "jdtls",
                 "ltex",
-                "lua_ls",
                 "protols",
                 "texlab",
                 "ts_ls",
