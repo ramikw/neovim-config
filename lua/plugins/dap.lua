@@ -143,13 +143,14 @@ return {
                 request = "launch",
                 program = custom_function.debug_c_or_cpp,
                 args = function()
-                    local args_str = vim.fn.input({
-                        prompt = "File name (input.txt): ",
-                    })
-                    if string.len(args_str) == 0 then
-                        args_str = "input.txt"
-                    end
-                    return "<" .. args_str
+                    return coroutine.create(function(dap_run_co)
+                        vim.ui.input({ prompt = "File name (input.txt): " }, function(input)
+                            if not input or string.len(input) == 0 then
+                                input = "input.txt"
+                            end
+                            coroutine.resume(dap_run_co, "<" .. input)
+                        end)
+                    end)
                 end,
             },
         }
@@ -179,10 +180,11 @@ return {
                 request = "launch",
                 program = custom_function.debug_rust,
                 args = function()
-                    local args_str = vim.fn.input({
-                        prompt = "Arguments: ",
-                    })
-                    return args_str
+                    return coroutine.create(function(dap_run_co)
+                        vim.ui.input({ prompt = "Arguments: " }, function(input)
+                            coroutine.resume(dap_run_co, input or "")
+                        end)
+                    end)
                 end,
             },
             {
@@ -191,13 +193,14 @@ return {
                 request = "launch",
                 program = custom_function.debug_rust,
                 args = function()
-                    local args_str = vim.fn.input({
-                        prompt = "File name (input.txt): ",
-                    })
-                    if string.len(args_str) == 0 then
-                        args_str = "input.txt"
-                    end
-                    return "<" .. args_str
+                    return coroutine.create(function(dap_run_co)
+                        vim.ui.input({ prompt = "File name (input.txt): " }, function(input)
+                            if not input or string.len(input) == 0 then
+                                input = "input.txt"
+                            end
+                            coroutine.resume(dap_run_co, "<" .. input)
+                        end)
+                    end)
                 end,
             },
         }

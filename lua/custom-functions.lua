@@ -44,29 +44,80 @@ function M.run_marked_tests()
     require("neotest").summary.run_marked()
 end
 
-function M.return_if_exists_else_ask(path)
+-- Async: calls `cb` with the resolved path, prompting only when `path` is missing.
+-- `cb` receives nil if the user cancels the prompt.
+function M.resolve_executable(path, cb)
     if M.file_exists(path) then
-        return path
+        cb(path)
     else
-        return vim.fn.input("Path to executable: ", vim.fn.getcwd() .. "/", "file")
+        vim.ui.input({
+            prompt = "Path to executable: ",
+            default = vim.fn.getcwd() .. "/",
+            completion = "file",
+        }, cb)
     end
+end
+
+-- nvim-dap resolves config values inside a coroutine, so returning one lets us
+-- prompt without blocking: vim.fn.input halts the whole editor until answered,
+-- which looks like a freeze when the prompt is hidden behind noice's cmdline.
+function M.return_if_exists_else_ask(path)
+    return coroutine.create(function(dap_run_co)
+        M.resolve_executable(path, function(result)
+            coroutine.resume(dap_run_co, result)
+        end)
+    end)
+end
+
+-- Runs a build command without blocking the UI, then continues via `on_success`.
+-- The old `vim.cmd[[!cargo build]]` froze nvim for the entire build.
+local function build_then(cmd, on_success)
+    vim.notify("Running " .. table.concat(cmd, " ") .. "...", vim.log.levels.INFO)
+    vim.system(cmd, { cwd = vim.fn.getcwd(), text = true }, function(res)
+        vim.schedule(function()
+            if res.code ~= 0 then
+                vim.notify(
+                    table.concat(cmd, " ") .. " failed:\n" .. (res.stderr or res.stdout or ""),
+                    vim.log.levels.ERROR
+                )
+            end
+            on_success(res.code == 0)
+        end)
+    end)
 end
 
 function M.get_folder_name(path)
     return string.sub(path, string.find(path, "/[^/]*$") + 1)
 end
 
+-- Builds, then resolves the executable, then hands the path back to nvim-dap.
+-- Aborts the launch (resume with nil) if the build fails.
+local function build_and_resolve(cmd, target)
+    return coroutine.create(function(dap_run_co)
+        build_then(cmd, function(ok)
+            if not ok then
+                coroutine.resume(dap_run_co, nil)
+                return
+            end
+            M.resolve_executable(target, function(result)
+                coroutine.resume(dap_run_co, result)
+            end)
+        end)
+    end)
+end
+
 function M.debug_c_or_cpp()
-    vim.cmd [[!g++ main.cpp -o main -g]]
-    return M.return_if_exists_else_ask(vim.fn.getcwd() .. "/" .. "main")
+    return build_and_resolve(
+        { "g++", "main.cpp", "-o", "main", "-g" },
+        vim.fn.getcwd() .. "/" .. "main"
+    )
 end
 
 function M.debug_rust()
-    vim.cmd [[!cargo build]]
-    return M.return_if_exists_else_ask(
-        vim.fn.getcwd()
-        .. "/target/debug/"
-        .. M.get_folder_name(vim.fn.getcwd()))
+    return build_and_resolve(
+        { "cargo", "build" },
+        vim.fn.getcwd() .. "/target/debug/" .. M.get_folder_name(vim.fn.getcwd())
+    )
 end
 
 function M.get_buffer_relative_path()

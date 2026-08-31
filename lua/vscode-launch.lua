@@ -42,6 +42,11 @@ local function load_launchjson()
     return expand(data, workspace_folder)
 end
 
+-- How long to wait for a preLaunchTask before giving up. Background/watch tasks
+-- signal readiness through their problemMatcher, so this only fires when the task
+-- is genuinely stuck (bad shell command, matcher that never hits, hung process).
+M.prelaunch_timeout_ms = 120000
+
 local function run_compound(data, compound)
     local configs_by_name = {}
     for _, cfg in ipairs(data.configurations or {}) do
@@ -82,7 +87,7 @@ local function run_compound(data, compound)
             -- never completes, so it only ever reports through on_result. A plain task
             -- with a problemMatcher fires both, hence the one-shot guard.
             local done = false
-            local function launch_once(ok)
+            local function launch_once(ok, reason)
                 if done then
                     return
                 end
@@ -92,22 +97,44 @@ local function run_compound(data, compound)
                     launch_all()
                 else
                     vim.notify(
-                        "preLaunchTask '" .. compound.preLaunchTask .. "' did not succeed, aborting compound",
+                        "preLaunchTask '" .. compound.preLaunchTask .. "' " .. reason .. ", aborting compound",
                         vim.log.levels.ERROR
                     )
                 end
             end
 
             task:subscribe("on_complete", function(_, status)
-                launch_once(status == STATUS.SUCCESS)
+                launch_once(status == STATUS.SUCCESS, "did not succeed (" .. tostring(status) .. ")")
                 return false
             end)
             task:subscribe("on_result", function()
-                launch_once(task.status ~= STATUS.FAILURE)
+                launch_once(task.status ~= STATUS.FAILURE, "reported failure")
+                return false
+            end)
+            -- A disposed task fires neither of the above, which would leave the
+            -- compound waiting forever.
+            task:subscribe("on_dispose", function()
+                launch_once(false, "was disposed before it finished")
                 return false
             end)
 
-            task:start()
+            if not task:start() then
+                launch_once(false, "failed to start")
+                return
+            end
+
+            vim.notify(
+                "Waiting for preLaunchTask '" .. compound.preLaunchTask .. "'...",
+                vim.log.levels.INFO
+            )
+
+            vim.defer_fn(function()
+                launch_once(
+                    false,
+                    ("did not finish within %ds (task is still running; open it with :OverseerToggle)")
+                        :format(M.prelaunch_timeout_ms / 1000)
+                )
+            end, M.prelaunch_timeout_ms)
         end)
     else
         launch_all()
