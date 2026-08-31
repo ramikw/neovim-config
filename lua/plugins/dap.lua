@@ -184,6 +184,27 @@ return {
     end,
     keys = {
         { "<leader>dh", function() require("dap.ui.widgets").hover() end,   desc = "Debug Hover" },
+        { "<leader>ds", function()
+            local dap = require("dap")
+            local sessions = dap.sessions()
+            local items = {}
+            for _, s in pairs(sessions) do
+                table.insert(items, s)
+            end
+            if #items == 0 then
+                vim.notify("No active debug sessions", vim.log.levels.WARN)
+                return
+            end
+            vim.ui.select(items, {
+                prompt = "Select debug session:",
+                format_item = function(s)
+                    local current = (dap.session() and dap.session().id == s.id) and " (current)" or ""
+                    return s.config.name .. current
+                end,
+            }, function(choice)
+                if choice then dap.set_session(choice) end
+            end)
+        end, desc = "Pick Debug Session" },
         { "<F5>",  function() require("dap").continue() end,                desc = "Continue Testing" },
         { "<F6>",  function() require("vscode-launch").pick_and_run_compound() end, desc = "Launch VS Code compound" },
         { "<F7>",  function() require("custom-functions").conditional_breakpoint() end, desc = "Conditional breakpoint" },

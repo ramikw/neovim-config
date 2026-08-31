@@ -7,6 +7,11 @@ local function explorer_focus()
     if e then e:focus() else require("snacks").explorer.open() end
 end
 
+local function explorer_reveal_and_focus()
+    local e = require("snacks").explorer.reveal()
+    if e then e:focus() end
+end
+
 return {
     "folke/snacks.nvim",
     priority = 1000,
@@ -93,7 +98,7 @@ return {
         { "<C-g>", function() require("snacks").lazygit.open() end, desc = "LazyGit" },
         { "<F3>", function() explorer_focus() end, desc = "Open File Tree" },
         { "<F4>", function() local e = explorer(); if e then e:close() end end, desc = "Close File Tree" },
-        { "<leader>e", function() require("snacks").explorer.reveal() end, desc = "Reveal current file in file tree" },
+        { "<leader>e", function() explorer_reveal_and_focus() end, desc = "Reveal current file in file tree and focus it" },
         { "ff", function() require("snacks").picker.files() end, desc = "Search Files" },
         { "fg", function() require("snacks").picker.grep() end, desc = "RipGrep" },
         { "fb", function() require("snacks").picker.buffers({ sort_lastused = true }) end, desc = "Search Buffers" },
@@ -105,5 +110,6 @@ return {
         { "go", function() require("snacks").gitbrowse.open() end, desc = "Open Git in browser" },
         { "<leader>h", function() require("snacks").notifier.show_history() end, desc = "Show notification history" },
         { "<C-t>", mode = { "n", "t" }, function() require("snacks").terminal.toggle() end, desc = "Toggle Terminal" },
+        { "<leader>w", function() require("snacks").bufdelete.delete() end, desc = "Close Current Buffer" },
     },
 }
