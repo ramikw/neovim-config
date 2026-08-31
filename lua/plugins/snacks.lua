@@ -96,7 +96,7 @@ return {
         { "<leader>e", function() require("snacks").explorer.reveal() end, desc = "Reveal current file in file tree" },
         { "ff", function() require("snacks").picker.files() end, desc = "Search Files" },
         { "fg", function() require("snacks").picker.grep() end, desc = "RipGrep" },
-        { "fb", function() require("snacks").picker.buffers() end, desc = "Search Buffers" },
+        { "fb", function() require("snacks").picker.buffers({ sort_lastused = true }) end, desc = "Search Buffers" },
         { "fh", function() require("snacks").picker.help() end, desc = "Help Tags" },
         { "fr", function() require("snacks").picker.registers() end, desc = "Open Registers" },
         { "fm", function() require("snacks").picker.marks() end, desc = "Open Marks" },
