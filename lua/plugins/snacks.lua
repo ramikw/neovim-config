@@ -34,12 +34,8 @@ return {
             enabled = true,
         },
         picker = {
-            layout = { preset = "default" },
             sources = {
                 explorer = {
-                    follow_file = false, -- only reveal the current file via <leader>e
-                    hidden = true,  -- show dotfiles
-                    ignored = true, -- show gitignored files
                     win = {
                         list = {
                             keys = {
@@ -54,25 +50,6 @@ return {
                         explorer_add_dotnet = function(picker)
                             require("easy-dotnet").create_item(picker:dir())
                         end,
-                    },
-                },
-            },
-            layouts = {
-                -- Same as the builtin default, but with the input at the bottom.
-                default = {
-                    reverse = true,
-                    layout = {
-                        box = "horizontal",
-                        width = 0.8,
-                        height = 0.8,
-                        {
-                            box = "vertical",
-                            border = true,
-                            title = "{title} {live} {flags}",
-                            { win = "list",  border = "none" },
-                            { win = "input", height = 1, border = "top" },
-                        },
-                        { win = "preview", title = "{preview}", border = true, width = 0.5 },
                     },
                 },
             },
