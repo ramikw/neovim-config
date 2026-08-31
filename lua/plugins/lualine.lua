@@ -22,10 +22,17 @@ return {
                 "mode",
             },
             lualine_b = {
-                require("custom-functions").get_buffer_relative_path,
+                "branch",
             },
-            lualine_c = {},
-            lualine_x = {},
+            lualine_c = {
+                {
+                    "filename",
+                    path = 1,
+                },
+            },
+            lualine_x = {
+                "diagnostics",
+            },
             lualine_y = {
                 "overseer",
                 "filetype",

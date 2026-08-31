@@ -120,16 +120,6 @@ function M.debug_rust()
     )
 end
 
-function M.get_buffer_relative_path()
-    local file_path = vim.api.nvim_buf_get_name(0)
-    local path = string.sub(file_path, string.len(vim.fn.getcwd()) + 2)
-    if string.len(path) > max_path_length then
-        return ".." .. string.sub(path, string.len(path) - max_path_length, string.len(path))
-    else
-        return path
-    end
-end
-
 function M.is_windows()
     return vim.fn.has("win32") == 1
 end
