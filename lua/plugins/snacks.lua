@@ -67,7 +67,7 @@ return {
         },
         lazygit = {
             enabled = true,
-            win = { height = 0.9, width = 0.9 },
+            win = { height = 0.9, width = 0.9, border = "rounded" },
         },
     },
 
