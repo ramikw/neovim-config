@@ -1,8 +1,6 @@
 -- Text editing helpers
 
 return {
-    { "nvim-mini/mini.pairs", opts = {} },
-    { "nvim-mini/mini.surround", opts = {} },
     { "windwp/nvim-ts-autotag", opts = {} },
     {
         "nmac427/guess-indent.nvim",
