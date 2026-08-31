@@ -1,3 +1,29 @@
+local function pick_session(prompt, on_choice)
+    local dap = require("dap")
+    local sessions = dap.sessions()
+    local items = {}
+    for _, s in pairs(sessions) do
+        table.insert(items, s)
+    end
+    if #items == 0 then
+        vim.notify("No active debug sessions", vim.log.levels.WARN)
+        return
+    end
+    if #items == 1 then
+        on_choice(items[1])
+        return
+    end
+    vim.ui.select(items, {
+        prompt = prompt,
+        format_item = function(s)
+            local current = (dap.session() and dap.session().id == s.id) and " (current)" or ""
+            return s.config.name .. current
+        end,
+    }, function(choice)
+        if choice then on_choice(choice) end
+    end)
+end
+
 return {
     "mfussenegger/nvim-dap",
     dependencies = {
@@ -185,30 +211,21 @@ return {
     keys = {
         { "<leader>dh", function() require("dap.ui.widgets").hover() end,   desc = "Debug Hover" },
         { "<leader>ds", function()
-            local dap = require("dap")
-            local sessions = dap.sessions()
-            local items = {}
-            for _, s in pairs(sessions) do
-                table.insert(items, s)
-            end
-            if #items == 0 then
-                vim.notify("No active debug sessions", vim.log.levels.WARN)
-                return
-            end
-            vim.ui.select(items, {
-                prompt = "Select debug session:",
-                format_item = function(s)
-                    local current = (dap.session() and dap.session().id == s.id) and " (current)" or ""
-                    return s.config.name .. current
-                end,
-            }, function(choice)
-                if choice then dap.set_session(choice) end
+            pick_session("Select debug session:", function(choice)
+                require("dap").set_session(choice)
             end)
         end, desc = "Pick Debug Session" },
         { "<F5>",  function() require("dap").continue() end,                desc = "Continue Testing" },
         { "<F6>",  function() require("vscode-launch").pick_and_run_compound() end, desc = "Launch VS Code compound" },
         { "<F7>",  function() require("custom-functions").conditional_breakpoint() end, desc = "Conditional breakpoint" },
         { "<F8>",  function() require("dap").terminate({ all = true }) end, desc = "Terminate All Sessions" },
+        { "<leader>dr", function()
+            pick_session("Restart debug session:", function(choice)
+                local dap = require("dap")
+                dap.set_session(choice)
+                dap.restart()
+            end)
+        end, desc = "Restart Debug Session" },
         { "<F9>",  function() require("dap").toggle_breakpoint() end,       desc = "Toggle Breakpoint" },
         { "<F10>", function() require("dap").step_over() end,               desc = "Step Over" },
         { "<F11>", function() require("dap").step_into() end,               desc = "Step Into" },
