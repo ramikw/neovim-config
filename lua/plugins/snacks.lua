@@ -79,7 +79,7 @@ return {
         { "<leader>e", function() explorer_reveal_and_focus() end, desc = "Reveal current file in file tree and focus it" },
         { "ff", function() require("snacks").picker.files() end, desc = "Search Files" },
         { "fg", function() require("snacks").picker.grep() end, desc = "RipGrep" },
-        { "fb", function() require("snacks").picker.buffers({ sort_lastused = true }) end, desc = "Search Buffers" },
+        { "  ", function() require("snacks").picker.buffers({ sort_lastused = true }) end, desc = "Search Buffers" },
         { "fh", function() require("snacks").picker.help() end, desc = "Help Tags" },
         { "fr", function() require("snacks").picker.registers() end, desc = "Open Registers" },
         { "fm", function() require("snacks").picker.marks() end, desc = "Open Marks" },
@@ -89,7 +89,5 @@ return {
         { "<leader>h", function() require("snacks").notifier.show_history() end, desc = "Show notification history" },
         { "<C-t>", mode = { "n", "t" }, function() require("snacks").terminal.toggle() end, desc = "Toggle Terminal" },
         { "<leader>w", function() require("snacks").bufdelete.delete() end, desc = "Close Current Buffer" },
-        { "<C-j>", function() vim.cmd.bprevious() end, desc = "Previous Buffer" },
-        { "<C-k>", function() vim.cmd.bnext() end, desc = "Next Buffer" },
     },
 }

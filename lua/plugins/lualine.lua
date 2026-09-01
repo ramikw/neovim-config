@@ -24,15 +24,7 @@ return {
             lualine_b = {
                 "branch",
             },
-            lualine_c = {
-                {
-                    "buffers",
-                    symbols = {
-                        alternate_file = "",
-                        directory =  "",
-                    }
-                }
-            },
+            lualine_c = {},
             lualine_x = {
                 "diagnostics",
             },
