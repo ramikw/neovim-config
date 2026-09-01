@@ -4,7 +4,14 @@ return {
 
     ---@module "auto-session"
     ---@type AutoSession.Config
-    opts = {},
+    opts = {
+        -- Close the Claude panel before saving so sessions never reopen it.
+        pre_save_cmds = {
+            function()
+                require("claudecode.terminal").close()
+            end,
+        },
+    },
 
     config = function(_, opts)
         -- "folds" here is what persists folds; the previous mkview/loadview

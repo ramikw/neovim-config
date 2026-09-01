@@ -3,6 +3,8 @@ return {
     dependencies = { "nvim-mini/mini.nvim" },
     opts = {
         options = {
+            component_separators = "",
+            section_separators = { left = '', right = '' },
             disabled_filetypes = {
                 "",
                 "DiffviewFiles",
@@ -15,14 +17,13 @@ return {
                 "snacks_dashboard",
                 "grug-far",
             },
-            section_separators = { right = "", left = ""},
         },
         sections = {
             lualine_a = {
-                "mode",
+                { "mode", separator = { left = "" }, right_padding = 2 },
             },
             lualine_b = {
-                "branch",
+                { "branch" },
             },
             lualine_c = {
                 {
@@ -38,7 +39,7 @@ return {
                 "filetype",
             },
             lualine_z = {
-                "location",
+                { "location", separator = { right = "" }, left_padding = 2 },
             },
         },
         inactive_sections = {
