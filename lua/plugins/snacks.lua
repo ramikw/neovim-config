@@ -89,5 +89,7 @@ return {
         { "<leader>h", function() require("snacks").notifier.show_history() end, desc = "Show notification history" },
         { "<C-t>", mode = { "n", "t" }, function() require("snacks").terminal.toggle() end, desc = "Toggle Terminal" },
         { "<leader>w", function() require("snacks").bufdelete.delete() end, desc = "Close Current Buffer" },
+        { "<C-j>", function() vim.cmd.bprevious() end, desc = "Previous Buffer" },
+        { "<C-k>", function() vim.cmd.bnext() end, desc = "Next Buffer" },
     },
 }

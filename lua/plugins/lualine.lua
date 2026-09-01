@@ -4,7 +4,6 @@ return {
     opts = {
         options = {
             component_separators = "",
-            section_separators = { left = '', right = '' },
             disabled_filetypes = {
                 "",
                 "DiffviewFiles",
@@ -20,16 +19,19 @@ return {
         },
         sections = {
             lualine_a = {
-                { "mode", separator = { left = "" }, right_padding = 2 },
+                "mode",
             },
             lualine_b = {
-                { "branch" },
+                "branch",
             },
             lualine_c = {
                 {
-                    "filename",
-                    path = 1,
-                },
+                    "buffers",
+                    symbols = {
+                        alternate_file = "",
+                        directory =  "",
+                    }
+                }
             },
             lualine_x = {
                 "diagnostics",
@@ -39,7 +41,7 @@ return {
                 "filetype",
             },
             lualine_z = {
-                { "location", separator = { right = "" }, left_padding = 2 },
+                "location",
             },
         },
         inactive_sections = {
