@@ -56,6 +56,10 @@ vim.cmd([[
 vim.o.winborder = "rounded"
 vim.opt.wrap = true
 
+-- Hide the tabline (e.g. shown by codediff.nvim's diff tab)
+
+vim.opt.showtabline = 0
+
 -- Required for LuaLine: https://github.com/neovim/neovim/pull/17266
 
 vim.opt.laststatus = 3
