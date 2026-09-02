@@ -19,11 +19,11 @@ vim.opt.swapfile = false
 vim.opt.scrolloff = 5
 
 vim.api.nvim_create_autocmd("FileType", {
-    pattern = "ui",
-    callback = function()
-        vim.opt_local.shiftwidth = 2
-        vim.opt_local.tabstop = 2
-    end,
+	pattern = "ui",
+	callback = function()
+		vim.opt_local.shiftwidth = 2
+		vim.opt_local.tabstop = 2
+	end,
 })
 
 -- Autocomplete size
@@ -42,7 +42,9 @@ vim.opt.titlestring = "nvim %{expand('%:p')}"
 
 -- Format alias
 
-vim.api.nvim_create_user_command("Format", function() vim.lsp.buf.format() end, {})
+vim.api.nvim_create_user_command("Format", function()
+	vim.lsp.buf.format()
+end, {})
 
 -- Mouse
 
@@ -73,10 +75,11 @@ vim.opt.spelllang = "en_us"
 
 -- Windows settings
 if require("custom-functions").is_windows() then
-    vim.o.shell = "nu"
-    vim.o.shellcmdflag = "--no-newline -c"
-    vim.o.shellredir = "out+err> %s"
-    vim.o.shellpipe = "| complete | update stderr { ansi strip } | tee { get stderr | save --force --raw %s } | into record"
-    vim.o.shellquote = ""
-    vim.o.shellxquote = ""
+	vim.o.shell = "nu"
+	vim.o.shellcmdflag = "--no-newline -c"
+	vim.o.shellredir = "out+err> %s"
+	vim.o.shellpipe =
+		"| complete | update stderr { ansi strip } | tee { get stderr | save --force --raw %s } | into record"
+	vim.o.shellquote = ""
+	vim.o.shellxquote = ""
 end

@@ -4,3 +4,4 @@
 1. [Ripgrep](https://github.com/BurntSushi/ripgrep/releases)
 1. [fd](https://github.com/sharkdp/fd/releases)
 1. `dotnet tool install -g EasyDotnet`
+1. [stylua](https://github.com/JohnnyMorganz/StyLua) — `stylua .` to format Lua files

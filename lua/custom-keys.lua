@@ -23,4 +23,3 @@ map("v", "<A-k>", "xkP`[V`]", defaultMapOptions)
 
 map("n", "zn", "]s", defaultMapOptions)
 map("n", "zN", "[s", defaultMapOptions)
-
