@@ -42,6 +42,7 @@ return {
                             keys = {
                                 ["E"] = "explorer_focus",
                                 ["A"] = "explorer_add_dotnet",
+                                ["<CR>"] = { { "pick_win", "confirm" } },
                             },
                         },
                     },

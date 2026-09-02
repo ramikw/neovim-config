@@ -3,6 +3,7 @@ return {
     dependencies = { "folke/snacks.nvim" },
     opts = {
         terminal = {
+            split_width_percentage = 0.25,
             snacks_win_opts = {
                 keys = {
                     remove_focus = {
