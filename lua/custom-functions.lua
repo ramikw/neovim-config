@@ -121,6 +121,10 @@ function M.is_windows()
 	return vim.fn.has("win32") == 1
 end
 
+function M.is_wsl()
+	return vim.fn.has("wsl") == 1
+end
+
 function M.conditional_breakpoint()
 	vim.ui.input({ prompt = "Condition" }, function(condition)
 		if condition ~= nil and string.len(condition) > 0 then

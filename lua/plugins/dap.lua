@@ -113,10 +113,25 @@ return {
 		-- Force node processes into a real OS terminal window instead of an
 		-- integrated split, regardless of what "console" a launch config asks for.
 		dap.defaults["pwa-node"].force_external_terminal = true
-		dap.defaults["pwa-node"].external_terminal = {
-			command = "cmd.exe",
-			args = { "/c", "start", "cmd.exe", "/k" },
-		}
+		if custom_function.is_wsl() then
+			dap.defaults["pwa-node"].external_terminal = {
+				command = "bash",
+				args = {
+					"-c",
+					[[cmd.exe /c start wsl.exe --cd "$PWD" -e bash -ic '"$0" "$@"; exec bash' "$0" "$@"]],
+				},
+			}
+		elseif custom_function.is_windows() then
+			dap.defaults["pwa-node"].external_terminal = {
+				command = "cmd.exe",
+				args = { "/c", "start", "cmd.exe", "/k" },
+			}
+		else
+			dap.defaults["pwa-node"].external_terminal = {
+				command = "x-terminal-emulator",
+				args = { "-e" },
+			}
+		end
 
 		-- Python
 
