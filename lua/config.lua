@@ -73,10 +73,17 @@ vim.opt.laststatus = 3
 vim.opt.spell = true
 vim.opt.spelllang = "en_us"
 
+-- Unused language providers
+
+vim.g.loaded_python3_provider = 0
+vim.g.loaded_node_provider = 0
+vim.g.loaded_perl_provider = 0
+vim.g.loaded_ruby_provider = 0
+
 -- Windows settings
 if require("custom-functions").is_windows() then
 	vim.o.shell = "nu"
-	vim.o.shellcmdflag = "--no-newline -c"
+	vim.o.shellcmdflag = "-n --no-newline -c"
 	vim.o.shellredir = "out+err> %s"
 	vim.o.shellpipe =
 		"| complete | update stderr { ansi strip } | tee { get stderr | save --force --raw %s } | into record"
