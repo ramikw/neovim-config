@@ -43,6 +43,8 @@ return {
 			sources = {
 				explorer = {
 					hidden = true,
+					-- don't auto-reveal the current buffer; reveal only via the keymap
+					follow_file = false,
 					win = {
 						list = {
 							keys = {
