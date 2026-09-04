@@ -2,7 +2,7 @@ return {
 	"MagicDuck/grug-far.nvim",
 	opts = {
 		showCompactInputs = true,
-		windowCreationCommand = "botright 80vsplit",
+		windowCreationCommand = "botright 50vsplit",
 	},
 	keys = {
 		{
