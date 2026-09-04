@@ -12,7 +12,6 @@ return {
 				"snacks_picker_list",
 				"snacks_picker_input",
 				"neotest-summary",
-				"snacks_terminal",
 				"snacks_dashboard",
 				"grug-far",
 			},
