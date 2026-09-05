@@ -3,6 +3,7 @@ return {
 	dependencies = { "nvim-mini/mini.nvim" },
 	opts = {
 		options = {
+			globalstatus = true,
 			component_separators = "",
 			disabled_filetypes = {
 				"",
