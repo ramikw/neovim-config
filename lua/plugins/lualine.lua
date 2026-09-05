@@ -4,7 +4,8 @@ return {
 	opts = {
 		options = {
 			globalstatus = true,
-			component_separators = "",
+			component_separators = '',
+			section_separators = { left = '', right = '' },
 			disabled_filetypes = {
 				"",
 				"DiffviewFiles",
@@ -28,13 +29,21 @@ return {
 				{
 					"filename",
 					path = 1,
+					shorting_target = 25,
+					symbols = {
+						modified = "",
+						readonly = "",
+					},
+					cond = function()
+						return vim.bo.filetype ~= "snacks_terminal"
+					end,
 				},
 			},
 			lualine_x = {
 				"diagnostics",
+				"overseer",
 			},
 			lualine_y = {
-				"overseer",
 				"filetype",
 			},
 			lualine_z = {
