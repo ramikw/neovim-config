@@ -105,32 +105,9 @@ return {
 			config.type = "pwa-node"
 			config.runtimeExecutable = parts[1]
 			config.runtimeArgs = vim.list_slice(parts, 2)
-			config.console = config.console or "integratedTerminal"
+			config.console = config.console or (vim.env.TMUX and "externalTerminal" or "internalConsole")
 			config.skipFiles = config.skipFiles or { "<node_internals>/**" }
 			callback(pwa_node_adapter)
-		end
-
-		-- Force node processes into a real OS terminal window instead of an
-		-- integrated split, regardless of what "console" a launch config asks for.
-		dap.defaults["pwa-node"].force_external_terminal = true
-		if custom_function.is_wsl() then
-			dap.defaults["pwa-node"].external_terminal = {
-				command = "bash",
-				args = {
-					"-c",
-					[[cmd.exe /c start wsl.exe --cd "$PWD" -e bash -ic '"$0" "$@"; exec bash' "$0" "$@"]],
-				},
-			}
-		elseif custom_function.is_windows() then
-			dap.defaults["pwa-node"].external_terminal = {
-				command = "cmd.exe",
-				args = { "/c", "start", "cmd.exe", "/k" },
-			}
-		else
-			dap.defaults["pwa-node"].external_terminal = {
-				command = "x-terminal-emulator",
-				args = { "-e" },
-			}
 		end
 
 		-- Python
@@ -220,6 +197,13 @@ return {
 				end,
 			},
 		}
+
+		if vim.env.TMUX then
+			dap.defaults.fallback.external_terminal = {
+				command = "tmux",
+				args = { "new-window" },
+			}
+		end
 
 		vim.fn.sign_define("DapBreakpoint", { text = "🟥", texthl = "", linehl = "", numhl = "" })
 		vim.fn.sign_define("DapStopped", { text = "▶️", texthl = "", linehl = "", numhl = "" })
