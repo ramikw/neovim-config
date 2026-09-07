@@ -7,7 +7,6 @@ return {
 			component_separators = '',
 			section_separators = { left = '', right = '' },
 			disabled_filetypes = {
-				"",
 				"DiffviewFiles",
 				"Outline",
 				"OverseerList",
