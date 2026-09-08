@@ -22,6 +22,20 @@ return {
 	"folke/snacks.nvim",
 	priority = 1000,
 	lazy = false,
+	dependencies = {
+		{
+			"s1n7ax/nvim-window-picker",
+			opts = {
+				hint = "floating-big-letter",
+				filter_func = function(window_ids)
+					return vim.tbl_filter(function(win)
+						local buf = vim.api.nvim_win_get_buf(win)
+						return vim.bo[buf].buftype == "" and not vim.bo[buf].filetype:find("^snacks")
+					end, window_ids)
+				end,
+			},
+		},
+	},
 	---@type snacks.Config
 	opts = {
 		bigfile = { enabled = true },
@@ -62,15 +76,23 @@ return {
 						end,
 						-- only prompt for a window when actually opening a file;
 						-- toggling a folder shouldn't trigger the window picker
-						confirm_pick_win = function(picker, item, action)
+						confirm_pick_win = function(picker, item)
 							if item and item.dir then
 								-- toggle the folder in place, no window picker
 								return picker:action("confirm")
 							end
-							local skip = Snacks.picker.actions.pick_win(picker, item, action)
-							if skip then
+							-- Used when the explorer is not shown as a split (e.g. Floating picker).
+							if not picker.layout.split then
+								picker.layout:hide()
+							end
+							local win = require("window-picker").pick_window()
+							if not picker.layout.split then
+								picker.layout:unhide()
+							end
+							if not win then
 								return
 							end
+							picker.main = win
 							return picker:action("confirm")
 						end,
 					},

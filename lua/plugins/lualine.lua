@@ -6,16 +6,6 @@ return {
 			globalstatus = true,
 			component_separators = '',
 			section_separators = { left = '', right = '' },
-			disabled_filetypes = {
-				"DiffviewFiles",
-				"Outline",
-				"OverseerList",
-				"snacks_picker_list",
-				"snacks_picker_input",
-				"neotest-summary",
-				"snacks_dashboard",
-				"grug-far",
-			},
 		},
 		sections = {
 			lualine_a = {
