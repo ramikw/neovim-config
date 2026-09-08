@@ -1,6 +1,7 @@
 return {
 	"folke/trouble.nvim",
 	dependencies = "nvim-mini/mini.nvim",
+	---@type trouble.Config
 	opts = {
 		action_keys = {
 			jump = { "<tab>", "<2-leftmouse>" },

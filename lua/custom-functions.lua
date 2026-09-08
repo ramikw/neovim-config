@@ -1,4 +1,3 @@
-local max_path_length = 45
 local M = {}
 
 function M.go_to_definition()

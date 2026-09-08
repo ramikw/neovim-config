@@ -1,7 +1,12 @@
 -- Text editing helpers
 
 return {
-	{ "windwp/nvim-ts-autotag", opts = {} },
+	{
+		"windwp/nvim-ts-autotag",
+		---@module "nvim-ts-autotag"
+		---@type nvim-ts-autotag.PluginSetup
+		opts = {},
+	},
 	{
 		"nmac427/guess-indent.nvim",
 		lazy = false,

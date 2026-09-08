@@ -16,6 +16,8 @@ return {
 				desc = "Toggle outline",
 			},
 		},
+		---@module "outline"
+		---@type outline.SetupOpts
 		opts = {
 			outline_window = { show_cursorline = true },
 		},

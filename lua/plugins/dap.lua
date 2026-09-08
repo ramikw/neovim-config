@@ -59,13 +59,14 @@ return {
 		-- been loaded for this document". Paths netcoredbg sends back are
 		-- normalized by nvim itself, so only the outgoing direction needs fixing.
 		if custom_function.is_windows() then
+			local netcoredbg_paths_patched = setmetatable({}, { __mode = "k" })
 			dap.listeners.on_session["netcoredbg-backslash-paths"] = function(_, session)
 				local type = session and session.config and session.config.type
 				-- on_session fires again whenever dap switches active session
-				if (type ~= "coreclr" and type ~= "netcoredbg") or session.netcoredbg_paths_patched then
+				if (type ~= "coreclr" and type ~= "netcoredbg") or netcoredbg_paths_patched[session] then
 					return
 				end
-				session.netcoredbg_paths_patched = true
+				netcoredbg_paths_patched[session] = true
 				local request = session.request
 				session.request = function(self, command, arguments, on_result)
 					if command == "setBreakpoints" and arguments.source and arguments.source.path then

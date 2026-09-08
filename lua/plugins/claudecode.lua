@@ -1,6 +1,9 @@
 return {
 	"coder/claudecode.nvim",
 	dependencies = { "folke/snacks.nvim" },
+	---@module "claudecode"
+	---@type PartialClaudeCodeConfig
+	---@diagnostic disable-next-line: missing-fields
 	opts = {
 		terminal = {
 			split_width_percentage = 0.25,

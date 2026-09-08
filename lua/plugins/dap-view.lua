@@ -1,8 +1,6 @@
 return {
 	{
 		"igorlfs/nvim-dap-view",
-		---@module "dap-view"
-		---@type dapview.Config
 		keys = {
 			{
 				"<leader>d",
@@ -12,6 +10,8 @@ return {
 				desc = "Toggle DAP view",
 			},
 		},
+		---@module "dap-view"
+		---@type dapview.Config
 		opts = {
 			winbar = {
 				default_section = "scopes",

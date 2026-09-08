@@ -1,5 +1,6 @@
 return {
 	"stevearc/overseer.nvim",
+	---@type overseer.SetupOpts
 	opts = {
 		dap = false,
 	},
@@ -14,7 +15,7 @@ return {
 		{
 			"<leader>b",
 			function()
-				require("overseer").run_task()
+				require("overseer").run_task({})
 			end,
 			desc = "Run Overseer Task",
 		},

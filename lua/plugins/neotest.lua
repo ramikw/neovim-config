@@ -16,6 +16,7 @@ return {
 			"stevearc/overseer.nvim",
 		},
 		config = function()
+			---@diagnostic disable-next-line: missing-fields
 			require("neotest").setup({
 				adapters = {
 					require("neotest-jest"),
@@ -25,6 +26,7 @@ return {
 					require("neotest-vitest"),
 				},
 				consumers = {
+					---@diagnostic disable-next-line: assign-type-mismatch
 					overseer = require("neotest.consumers.overseer"),
 				},
 				overseer = {
