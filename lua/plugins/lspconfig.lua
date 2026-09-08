@@ -51,7 +51,6 @@ return {
 				"eslint",
 				"html",
 				"jdtls",
-				"ltex",
 				"protols",
 				"texlab",
 				"ts_ls",
@@ -61,10 +60,6 @@ return {
 			for _, lsp in ipairs(lsps) do
 				vim.lsp.enable(lsp)
 			end
-
-			vim.lsp.config("ltex", {
-				cmd_env = { JAVA_OPTS = "-Djdk.xml.totalEntitySizeLimit=0" },
-			})
 
 			vim.lsp.config("eslint", {
 				root_markers = { ".eslintrc.json" },
