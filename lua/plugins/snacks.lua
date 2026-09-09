@@ -27,6 +27,7 @@ return {
 			"s1n7ax/nvim-window-picker",
 			opts = {
 				hint = "floating-big-letter",
+				show_prompt = false,
 				filter_func = function(window_ids)
 					return vim.tbl_filter(function(win)
 						local buf = vim.api.nvim_win_get_buf(win)
