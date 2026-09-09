@@ -64,7 +64,6 @@ return {
 				"scss",
 				"sql",
 				"svelte",
-				"tmux",
 				"toml",
 				"tsv",
 				"tsx",

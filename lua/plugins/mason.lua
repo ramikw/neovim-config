@@ -26,7 +26,6 @@ return {
 				"html", -- HTML
 				"jdtls", -- Java
 				"jsonls", -- JSON
-				"ltex", -- Spell Checking
 				"protols", -- Protocol buffer
 				"pylsp", -- Python
 				"texlab", -- Latex
