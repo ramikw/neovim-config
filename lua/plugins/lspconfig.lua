@@ -7,9 +7,6 @@ return {
 			-- nvim-ufo
 			"kevinhwang91/nvim-ufo",
 			"kevinhwang91/promise-async",
-
-			-- File operations
-			"antosha417/nvim-lsp-file-operations",
 		},
 		lazy = false,
 		config = function()
@@ -17,7 +14,6 @@ return {
 				"force",
 				vim.lsp.protocol.make_client_capabilities(),
 				require("blink.cmp").get_lsp_capabilities(),
-				require("lsp-file-operations").default_capabilities(),
 				{
 					textDocument = {
 						foldingRange = { dynamicRegistration = false, lineFoldingOnly = true },

@@ -5,9 +5,7 @@ return {
 		"nvim-neotest/neotest",
 		dependencies = {
 			"nvim-neotest/nvim-nio",
-			"nvim-lua/plenary.nvim",
 			"nvim-treesitter/nvim-treesitter",
-			"antoinemadec/FixCursorHold.nvim",
 			"GustavEikaas/easy-dotnet.nvim",
 			"nvim-neotest/neotest-python",
 			"nvim-neotest/neotest-jest",
@@ -24,6 +22,25 @@ return {
 					require("easy-dotnet.neotest"),
 					require("rustaceanvim.neotest"),
 					require("neotest-vitest"),
+				},
+				discovery = {
+					enabled = true,
+					concurrent = 0,
+					-- these are walked by every adapter otherwise, which delays
+					-- the summary until the whole tree has been scanned
+					filter_dir = function(name)
+						return not vim.tbl_contains({
+							"node_modules",
+							"bin",
+							"obj",
+							"target",
+							"dist",
+							"build",
+							"__pycache__",
+							"vendor",
+							"coverage",
+						}, name)
+					end,
 				},
 				consumers = {
 					---@diagnostic disable-next-line: assign-type-mismatch
@@ -47,15 +64,6 @@ return {
 			},
 			{ "<leader>t", custom_functions.toggle_test_summary, desc = "Toggle test summary" },
 			{ "<leader>r", custom_functions.run_marked_tests, desc = "Run marked tests" },
-		},
-	},
-	{
-		"andythigpen/nvim-coverage",
-		dependencies = "nvim-lua/plenary.nvim",
-		opts = {},
-		keys = {
-			{ "<leader>c", custom_functions.load_coverage, desc = "Load Coverage" },
-			{ "<leader>s", custom_functions.show_coverage_summary, desc = "Show Coverage Summary" },
 		},
 	},
 }
