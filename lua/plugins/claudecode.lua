@@ -6,7 +6,7 @@ return {
 	---@diagnostic disable-next-line: missing-fields
 	opts = {
 		terminal = {
-			split_width_percentage = 0.25,
+			split_width_percentage = 0.20,
 			snacks_win_opts = {
 				keys = {
 					remove_focus = {
