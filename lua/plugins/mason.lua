@@ -26,16 +26,14 @@ return {
 				"html", -- HTML
 				"jdtls", -- Java
 				"jsonls", -- JSON
+				"powershell_es", -- PowerShell
 				"protols", -- Protocol buffer
 				"pylsp", -- Python
+				"sqlls", -- SQL
 				"texlab", -- Latex
 				"ts_ls", -- Typescript
-				"powershell_es", -- PowerShell
 				"vimls", -- Vim
 			}
-
-			-- Common packages
-			table.insert(packages, "sqlls") -- SQL
 
 			require("mason-lspconfig").setup({
 				ensure_installed = packages,
