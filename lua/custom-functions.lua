@@ -5,6 +5,8 @@ function M.go_to_definition()
 end
 
 function M.debug_test()
+	-- Force dap to load first.
+	require("dap")
 	require("neotest").run.run({
 		strategy = "dap",
 		suite = false,
