@@ -4,11 +4,12 @@ return {
 	{
 		"nvim-neotest/neotest",
 		dependencies = {
+			"nvim-lua/plenary.nvim",
 			"nvim-neotest/nvim-nio",
 			-- Still needed even that the repo claims it is not.
 			"antoinemadec/FixCursorHold.nvim",
 			"nvim-treesitter/nvim-treesitter",
-			"Issafalcon/neotest-dotnet",
+			"nsidorenco/neotest-vstest",
 			"nvim-neotest/neotest-python",
 			"nvim-neotest/neotest-jest",
 			"marilari88/neotest-vitest",
@@ -16,16 +17,15 @@ return {
 			"stevearc/overseer.nvim",
 		},
 		config = function()
+			vim.g.neotest_vstest = {
+				build_opts = { additional_args = { "/p:SkipOpenApiGen=true" } },
+			}
 			---@diagnostic disable-next-line: missing-fields
 			require("neotest").setup({
 				adapters = {
 					require("neotest-jest"),
 					require("neotest-python"),
-					require("neotest-dotnet")({
-						dap = {
-							adapter_name = "netcoredbg",
-						},
-					}),
+					require("neotest-vstest"),
 					require("rustaceanvim.neotest"),
 					require("neotest-vitest"),
 				},
