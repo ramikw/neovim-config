@@ -36,26 +36,8 @@ return {
 
 			-- LSP
 
-			local lsps = {
-				"angularls",
-				"bashls",
-				"clangd",
-				"cssls",
-				"docker_compose_language_service",
-				"dockerls",
-				"emmet_ls",
-				"eslint",
-				"html",
-				"jdtls",
-				"protols",
-				"texlab",
-				"ts_ls",
-				"vimls",
-			}
-
-			for _, lsp in ipairs(lsps) do
-				vim.lsp.enable(lsp)
-			end
+			-- Servers themselves are enabled by mason-lspconfig's automatic_enable
+			-- once their mason package is installed.
 
 			vim.lsp.config("eslint", {
 				root_markers = { ".eslintrc.json" },
@@ -64,13 +46,12 @@ return {
 				},
 			})
 
-			vim.lsp.config("sqlls", {
+			vim.lsp.config("sqls", {
 				filetypes = { "sql" },
 				root_dir = function(_)
 					return vim.loop.cwd()
 				end,
 			})
-			vim.lsp.enable("sqlls")
 
 			vim.lsp.config("pylsp", {
 				settings = {
@@ -83,7 +64,6 @@ return {
 					},
 				},
 			})
-			vim.lsp.enable("pylsp")
 
 			vim.lsp.config("jsonls", {
 				settings = {
@@ -93,12 +73,25 @@ return {
 					},
 				},
 			})
-			vim.lsp.enable("jsonls")
 
 			vim.lsp.config("bicep", {
 				cmd = { vim.fn.expand("$MASON/packages/bicep-lsp/bicep-lsp.cmd") },
 			})
-			vim.lsp.enable("bicep")
+
+			vim.lsp.config("roslyn", {
+				settings = {
+					["csharp|inlay_hints"] = {
+						csharp_enable_inlay_hints_for_implicit_object_creation = true,
+						csharp_enable_inlay_hints_for_implicit_variable_types = true,
+						csharp_enable_inlay_hints_for_lambda_parameter_types = true,
+						dotnet_enable_inlay_hints_for_parameters = true,
+						dotnet_enable_inlay_hints_for_other_parameters = true,
+						dotnet_enable_inlay_hints_for_object_creation_parameters = true,
+						dotnet_enable_inlay_hints_for_literal_parameters = true,
+						dotnet_enable_inlay_hints_for_indexer_parameters = true,
+					},
+				},
+			})
 
 			require("ufo").setup()
 		end,

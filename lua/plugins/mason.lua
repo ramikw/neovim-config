@@ -29,15 +29,17 @@ return {
 				"powershell_es", -- PowerShell
 				"protols", -- Protocol buffer
 				"pylsp", -- Python
-				"sqlls", -- SQL
 				"texlab", -- Latex
 				"ts_ls", -- Typescript
-				"vimls", -- Vim
 			}
 
 			require("mason-lspconfig").setup({
 				ensure_installed = packages,
 				automatic_installation = false,
+				-- roslyn.nvim manages its own "roslyn" client
+				automatic_enable = {
+					exclude = { "roslyn_ls" },
+				},
 			})
 
 			vim.diagnostic.config({
@@ -63,6 +65,7 @@ return {
 					"firefox-debug-adapter",
 					"js-debug-adapter",
 					"netcoredbg",
+					"roslyn-language-server",
 				},
 			})
 		end,

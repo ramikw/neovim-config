@@ -5,8 +5,10 @@ return {
 		"nvim-neotest/neotest",
 		dependencies = {
 			"nvim-neotest/nvim-nio",
+			-- Still needed even that the repo claims it is not.
+			"antoinemadec/FixCursorHold.nvim",
 			"nvim-treesitter/nvim-treesitter",
-			"GustavEikaas/easy-dotnet.nvim",
+			"Issafalcon/neotest-dotnet",
 			"nvim-neotest/neotest-python",
 			"nvim-neotest/neotest-jest",
 			"marilari88/neotest-vitest",
@@ -19,7 +21,11 @@ return {
 				adapters = {
 					require("neotest-jest"),
 					require("neotest-python"),
-					require("easy-dotnet.neotest"),
+					require("neotest-dotnet")({
+						dap = {
+							adapter_name = "netcoredbg",
+						},
+					}),
 					require("rustaceanvim.neotest"),
 					require("neotest-vitest"),
 				},
