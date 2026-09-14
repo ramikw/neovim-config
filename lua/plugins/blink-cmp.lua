@@ -4,6 +4,7 @@ return {
 	event = { "InsertEnter", "CmdlineEnter" },
 	dependencies = {
 		{ "xzbdmw/colorful-menu.nvim", opts = {} },
+		"rafamadriz/friendly-snippets",
 	},
 	---@module 'blink.cmp'
 	---@type blink.cmp.Config
