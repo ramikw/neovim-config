@@ -29,6 +29,15 @@ return {
 				},
 			},
 			lualine_x = {
+				{
+					function()
+						return "󰑋 Recording @" .. vim.fn.reg_recording()
+					end,
+					cond = function()
+						return vim.fn.reg_recording() ~= ""
+					end,
+					color = { fg = "#ff9e64" },
+				},
 				"diagnostics",
 				"overseer",
 			},
