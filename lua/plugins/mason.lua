@@ -15,22 +15,23 @@ return {
 		config = function()
 			local packages = {
 				"angularls", -- Angular
+				"basedpyright", -- Python
 				"bashls", -- Bash
 				"bicep", -- Bicep
 				"clangd", -- C/CPP
 				"cssls", -- CSS
 				"docker_compose_language_service", -- Docker compose
 				"dockerls", -- Docker
-				"emmet_ls", -- Emmet
+				"emmet_language_server", -- Emmet
 				"eslint", -- Eslint
 				"html", -- HTML
 				"jdtls", -- Java
 				"jsonls", -- JSON
+				"postgres_lsp", -- PostgreSQL
 				"powershell_es", -- PowerShell
 				"protols", -- Protocol buffer
-				"pylsp", -- Python
 				"texlab", -- Latex
-				"ts_ls", -- Typescript
+				"vtsls", -- Typescript
 			}
 
 			require("mason-lspconfig").setup({

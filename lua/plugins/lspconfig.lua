@@ -46,25 +46,6 @@ return {
 				},
 			})
 
-			vim.lsp.config("sqls", {
-				filetypes = { "sql" },
-				root_dir = function(_)
-					return vim.loop.cwd()
-				end,
-			})
-
-			vim.lsp.config("pylsp", {
-				settings = {
-					pylsp = {
-						plugins = {
-							pycodestyle = {
-								enabled = true,
-							},
-						},
-					},
-				},
-			})
-
 			vim.lsp.config("jsonls", {
 				settings = {
 					json = {
