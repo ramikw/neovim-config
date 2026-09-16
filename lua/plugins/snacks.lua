@@ -105,7 +105,7 @@ return {
 			enabled = true,
 			timeout = 4000,
 		},
-		image = { enabled = true },
+		image = { enabled = false },
 		indent = { enabled = true, animate = { enabled = false } },
 		words = { enabled = true },
 		terminal = {
