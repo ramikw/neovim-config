@@ -43,6 +43,7 @@ return {
 				"json",
 				"json5",
 				"kotlin",
+				"latex",
 				"lua",
 				"luadoc",
 				"luap",
