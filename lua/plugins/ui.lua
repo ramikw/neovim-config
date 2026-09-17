@@ -22,14 +22,4 @@ return {
 			outline_window = { show_cursorline = true },
 		},
 	},
-	{
-		"MeanderingProgrammer/render-markdown.nvim",
-		dependencies = { "nvim-treesitter/nvim-treesitter" },
-		ft = "markdown",
-		---@module "render-markdown"
-		---@type render.md.UserConfig
-		opts = {
-			completions = { lsp = { enabled = true } },
-		},
-	},
 }
