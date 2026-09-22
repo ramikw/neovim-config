@@ -229,6 +229,7 @@ return {
 			desc = "Toggle Terminal",
 		},
 		{
+			-- TODO: revise this and other buffer shortcuts (see what LazyVim has)
 			"<leader>w",
 			function()
 				require("snacks").bufdelete.delete()
