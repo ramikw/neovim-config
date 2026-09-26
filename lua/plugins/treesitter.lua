@@ -108,6 +108,7 @@ return {
 		-- Used by surround plugin
 		"nvim-treesitter/nvim-treesitter-textobjects",
 		branch = "main",
+		event = "VeryLazy",
 		dependencies = "nvim-treesitter/nvim-treesitter",
 	},
 }

@@ -36,16 +36,6 @@ return {
 
 			-- LSP
 
-			-- Servers themselves are enabled by mason-lspconfig's automatic_enable
-			-- once their mason package is installed.
-
-			vim.lsp.config("eslint", {
-				root_markers = { ".eslintrc.json" },
-				settings = {
-					-- useFlatConfig = false,
-				},
-			})
-
 			vim.lsp.config("jsonls", {
 				settings = {
 					json = {
