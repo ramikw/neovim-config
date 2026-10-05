@@ -227,5 +227,12 @@ return {
 			end,
 			desc = "Close Other Buffers",
 		},
+		{
+			"<leader>ba",
+			function()
+				require("snacks").bufdelete.all()
+			end,
+			desc = "Close All Buffers",
+		},
 	},
 }
