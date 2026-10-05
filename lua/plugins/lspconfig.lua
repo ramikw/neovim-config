@@ -27,10 +27,6 @@ return {
 				capabilities = capabilities,
 			})
 
-			-- Code lens (off by default; run the one on the current line with grx)
-
-			vim.lsp.codelens.enable(true)
-
 			-- Folding
 
 			vim.opt.foldcolumn = "0"
@@ -146,7 +142,6 @@ return {
 			},
 			{ "grn", vim.lsp.buf.rename, desc = "Rename" },
 			{ "gra", vim.lsp.buf.code_action, mode = { "n", "x" }, desc = "Code Actions" },
-			{ "grx", vim.lsp.codelens.run, desc = "Run Code Lens" },
 			{ "K", vim.lsp.buf.hover, desc = "Hover Documentation" },
 			{ "<C-s>", vim.lsp.buf.signature_help, mode = "i", desc = "Signature Help" },
 
