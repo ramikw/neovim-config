@@ -6,14 +6,14 @@ return {
 	},
 	keys = {
 		{
-			"<leader>v",
+			"<leader>ot",
 			function()
 				require("overseer").toggle()
 			end,
 			desc = "Toggle Overseer",
 		},
 		{
-			"<leader>b",
+			"<leader>or",
 			function()
 				require("overseer").run_task({})
 			end,

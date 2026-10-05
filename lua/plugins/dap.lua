@@ -233,7 +233,7 @@ return {
 			function()
 				require("dap").continue()
 			end,
-			desc = "Continue Testing",
+			desc = "Continue Debugging",
 		},
 		{
 			"<F6>",

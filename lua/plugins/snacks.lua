@@ -150,42 +150,42 @@ return {
 			desc = "Reveal current file in file tree and focus it",
 		},
 		{
-			"ff",
+			"<Space>f",
 			function()
 				require("snacks").picker.files()
 			end,
 			desc = "Search Files",
 		},
 		{
-			"fg",
+			"<Space>g",
 			function()
 				require("snacks").picker.grep()
 			end,
 			desc = "RipGrep",
 		},
 		{
-			"  ",
+			"<Space><Space>",
 			function()
 				require("snacks").picker.buffers({ sort_lastused = true })
 			end,
 			desc = "Search Buffers",
 		},
 		{
-			"fh",
+			"<Space>h",
 			function()
 				require("snacks").picker.help()
 			end,
 			desc = "Help Tags",
 		},
 		{
-			"fr",
+			"<Space>r",
 			function()
 				require("snacks").picker.registers()
 			end,
 			desc = "Open Registers",
 		},
 		{
-			"fm",
+			"<Space>m",
 			function()
 				require("snacks").picker.marks()
 			end,
@@ -199,7 +199,7 @@ return {
 			desc = "Open Git in browser",
 		},
 		{
-			"<leader>h",
+			"<leader>n",
 			function()
 				require("snacks").notifier.show_history()
 			end,
@@ -214,12 +214,18 @@ return {
 			desc = "Toggle Terminal",
 		},
 		{
-			-- TODO: revise this and other buffer shortcuts (see what LazyVim has)
-			"<leader>w",
+			"<leader>bd",
 			function()
 				require("snacks").bufdelete.delete()
 			end,
 			desc = "Close Current Buffer",
+		},
+		{
+			"<leader>bo",
+			function()
+				require("snacks").bufdelete.other()
+			end,
+			desc = "Close Other Buffers",
 		},
 	},
 }

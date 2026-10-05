@@ -59,17 +59,17 @@ return {
 			})
 		end,
 		keys = {
-			{ "<leader>a", custom_functions.run_all_tests, desc = "Run All Tests" },
-			{ "<leader>l", custom_functions.debug_test, desc = "Debug Test" },
+			{ "<leader>ta", custom_functions.run_all_tests, desc = "Run All Tests" },
+			{ "<leader>td", custom_functions.debug_test, desc = "Debug Test" },
 			{
-				"<leader>o",
+				"<leader>to",
 				function()
 					require("neotest").output.open()
 				end,
 				desc = "Show Test Output",
 			},
-			{ "<leader>t", custom_functions.toggle_test_summary, desc = "Toggle test summary" },
-			{ "<leader>r", custom_functions.run_marked_tests, desc = "Run marked tests" },
+			{ "<leader>ts", custom_functions.toggle_test_summary, desc = "Toggle test summary" },
+			{ "<leader>tm", custom_functions.run_marked_tests, desc = "Run marked tests" },
 		},
 	},
 }

@@ -4,46 +4,46 @@ return {
 	opts = {},
 	keys = {
 		{
-			"gp",
+			"<leader>hp",
 			function()
 				require("gitsigns").preview_hunk()
 			end,
 			desc = "Git Preview Hunk",
 		},
 		{
-			"gs",
+			"<leader>hs",
 			function()
 				require("gitsigns").stage_hunk()
 			end,
 			desc = "Git Stage Hunk",
 		},
 		{
-			"gn",
+			"]h",
 			function()
 				require("gitsigns").nav_hunk("next")
 			end,
 			desc = "Git Next Hunk",
 		},
 		{
-			"gN",
+			"[h",
 			function()
 				require("gitsigns").nav_hunk("prev")
 			end,
 			desc = "Git Previous Hunk",
 		},
 		{
-			"gl",
+			"<leader>hb",
 			function()
 				require("gitsigns").blame_line()
 			end,
 			desc = "Git Blame Line",
 		},
 		{
-			"grh",
+			"<leader>hr",
 			function()
 				require("gitsigns").reset_hunk()
 			end,
-			desc = "Git Rest Hunk",
+			desc = "Git Reset Hunk",
 		},
 	},
 }
