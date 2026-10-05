@@ -150,42 +150,42 @@ return {
 			desc = "Reveal current file in file tree and focus it",
 		},
 		{
-			"<Space>f",
+			"<leader>ff",
 			function()
 				require("snacks").picker.files()
 			end,
 			desc = "Search Files",
 		},
 		{
-			"<Space>g",
+			"<leader>fg",
 			function()
 				require("snacks").picker.grep()
 			end,
 			desc = "RipGrep",
 		},
 		{
-			"<Space><Space>",
+			"<leader>fb",
 			function()
 				require("snacks").picker.buffers({ sort_lastused = true })
 			end,
 			desc = "Search Buffers",
 		},
 		{
-			"<Space>h",
+			"<leader>fh",
 			function()
 				require("snacks").picker.help()
 			end,
 			desc = "Help Tags",
 		},
 		{
-			"<Space>r",
+			"<leader>fr",
 			function()
 				require("snacks").picker.registers()
 			end,
 			desc = "Open Registers",
 		},
 		{
-			"<Space>m",
+			"<leader>fm",
 			function()
 				require("snacks").picker.marks()
 			end,
