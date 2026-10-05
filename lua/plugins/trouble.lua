@@ -3,9 +3,9 @@ return {
 	dependencies = "nvim-mini/mini.nvim",
 	---@type trouble.Config
 	opts = {
-		action_keys = {
-			jump = { "<tab>", "<2-leftmouse>" },
-			jump_close = { "<cr>" },
+		keys = {
+			["<tab>"] = "jump",
+			["<cr>"] = "jump_close",
 		},
 	},
 	keys = {

@@ -1,9 +1,5 @@
 local M = {}
 
-function M.go_to_definition()
-	vim.lsp.buf.definition()
-end
-
 function M.debug_test()
 	-- Force dap to load first.
 	require("dap")

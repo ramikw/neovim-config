@@ -192,21 +192,6 @@ return {
 			desc = "Open Marks",
 		},
 		{
-			"gr",
-			function()
-				require("snacks").picker.lsp_references()
-			end,
-			desc = "LSP References",
-		},
-		{
-			"<C-c>",
-			mode = { "n", "v" },
-			function()
-				vim.lsp.buf.code_action()
-			end,
-			desc = "Code Actions",
-		},
-		{
 			"go",
 			function()
 				require("snacks").gitbrowse.open()

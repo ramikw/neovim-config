@@ -27,6 +27,10 @@ return {
 				capabilities = capabilities,
 			})
 
+			-- Code lens (off by default; run the one on the current line with grx)
+
+			vim.lsp.codelens.enable(true)
+
 			-- Folding
 
 			vim.opt.foldcolumn = "0"
@@ -67,19 +71,130 @@ return {
 			require("ufo").setup()
 		end,
 		keys = {
-			-- LSP keys
+			-- LSP keys (Neovim 0.12 defaults, redefined here so every key has a description;
+			-- navigation keys use Snacks pickers so multiple results can be browsed)
 
-			{ "gd", require("custom-functions").go_to_definition, desc = "Go To Definition" },
-			{ "gi", vim.lsp.buf.implementation, desc = "Go To Implementation" },
-			{ "gD", vim.lsp.buf.declaration, desc = "Go To Declaration" },
-			{ "<C-h>", vim.lsp.buf.hover, desc = "Mouse Hover" },
 			{
-				"<F2>",
+				"gd",
 				function()
-					vim.lsp.buf.rename()
+					require("snacks").picker.lsp_definitions()
 				end,
-				desc = "Rename",
+				desc = "Go To Definition",
 			},
+			{
+				"grr",
+				function()
+					require("snacks").picker.lsp_references()
+				end,
+				desc = "Go To References",
+			},
+			{
+				"gri",
+				function()
+					require("snacks").picker.lsp_implementations()
+				end,
+				desc = "Go To Implementation",
+			},
+			{
+				"grt",
+				function()
+					require("snacks").picker.lsp_type_definitions()
+				end,
+				desc = "Go To Type Definition",
+			},
+			{
+				"grc",
+				function()
+					require("snacks").picker.lsp_incoming_calls()
+				end,
+				desc = "Incoming Calls (callers)",
+			},
+			{
+				"grC",
+				function()
+					require("snacks").picker.lsp_outgoing_calls()
+				end,
+				desc = "Outgoing Calls (callees)",
+			},
+			{
+				"gO",
+				function()
+					require("snacks").picker.lsp_symbols()
+				end,
+				desc = "Document Symbols",
+			},
+			{
+				"gW",
+				function()
+					require("snacks").picker.lsp_workspace_symbols()
+				end,
+				desc = "Workspace Symbols",
+			},
+			{
+				"]]",
+				function()
+					require("snacks").words.jump(1)
+				end,
+				desc = "Next Reference",
+			},
+			{
+				"[[",
+				function()
+					require("snacks").words.jump(-1)
+				end,
+				desc = "Previous Reference",
+			},
+			{ "grn", vim.lsp.buf.rename, desc = "Rename" },
+			{ "gra", vim.lsp.buf.code_action, mode = { "n", "x" }, desc = "Code Actions" },
+			{ "grx", vim.lsp.codelens.run, desc = "Run Code Lens" },
+			{ "K", vim.lsp.buf.hover, desc = "Hover Documentation" },
+			{ "<C-s>", vim.lsp.buf.signature_help, mode = "i", desc = "Signature Help" },
+
+			-- Diagnostic keys (also Neovim defaults)
+
+			{
+				"]d",
+				function()
+					vim.diagnostic.jump({ count = 1 })
+				end,
+				desc = "Next Diagnostic",
+			},
+			{
+				"[d",
+				function()
+					vim.diagnostic.jump({ count = -1 })
+				end,
+				desc = "Previous Diagnostic",
+			},
+			{
+				"]D",
+				function()
+					vim.diagnostic.jump({ count = math.huge, wrap = false })
+				end,
+				desc = "Last Diagnostic",
+			},
+			{
+				"[D",
+				function()
+					vim.diagnostic.jump({ count = -math.huge, wrap = false })
+				end,
+				desc = "First Diagnostic",
+			},
+			{
+				"]e",
+				function()
+					vim.diagnostic.jump({ count = 1, severity = vim.diagnostic.severity.ERROR })
+				end,
+				desc = "Next Error",
+			},
+			{
+				"[e",
+				function()
+					vim.diagnostic.jump({ count = -1, severity = vim.diagnostic.severity.ERROR })
+				end,
+				desc = "Previous Error",
+			},
+			{ "<C-w>d", vim.diagnostic.open_float, desc = "Show Diagnostic Under Cursor" },
 
 			-- Folds keys
 

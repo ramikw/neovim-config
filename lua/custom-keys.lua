@@ -1,10 +1,6 @@
 local map = vim.keymap.set
 local defaultMapOptions = { silent = true, noremap = true }
 
--- Vim diagnostic
-
-map("n", "<space>q", vim.diagnostic.open_float, defaultMapOptions)
-
 -- Clear highlighting on escape in normal mode
 
 map("n", "<esc>", "<cmd>:noh<CR>", defaultMapOptions)
