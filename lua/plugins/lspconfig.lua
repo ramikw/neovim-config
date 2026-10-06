@@ -67,9 +67,6 @@ return {
 			require("ufo").setup()
 		end,
 		keys = {
-			-- LSP keys (Neovim 0.12 defaults, redefined here so every key has a description;
-			-- navigation keys use Snacks pickers so multiple results can be browsed)
-
 			{
 				"gd",
 				function()
@@ -140,41 +137,6 @@ return {
 				end,
 				desc = "Previous Reference",
 			},
-			{ "grn", vim.lsp.buf.rename, desc = "Rename" },
-			{ "gra", vim.lsp.buf.code_action, mode = { "n", "x" }, desc = "Code Actions" },
-			{ "K", vim.lsp.buf.hover, desc = "Hover Documentation" },
-			{ "<C-s>", vim.lsp.buf.signature_help, mode = "i", desc = "Signature Help" },
-
-			-- Diagnostic keys (also Neovim defaults)
-
-			{
-				"]d",
-				function()
-					vim.diagnostic.jump({ count = 1 })
-				end,
-				desc = "Next Diagnostic",
-			},
-			{
-				"[d",
-				function()
-					vim.diagnostic.jump({ count = -1 })
-				end,
-				desc = "Previous Diagnostic",
-			},
-			{
-				"]D",
-				function()
-					vim.diagnostic.jump({ count = math.huge, wrap = false })
-				end,
-				desc = "Last Diagnostic",
-			},
-			{
-				"[D",
-				function()
-					vim.diagnostic.jump({ count = -math.huge, wrap = false })
-				end,
-				desc = "First Diagnostic",
-			},
 			{
 				"]e",
 				function()
@@ -189,7 +151,6 @@ return {
 				end,
 				desc = "Previous Error",
 			},
-			{ "<C-w>d", vim.diagnostic.open_float, desc = "Show Diagnostic Under Cursor" },
 
 			-- Folds keys
 
