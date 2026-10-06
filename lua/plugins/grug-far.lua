@@ -25,7 +25,7 @@ return {
 	keys = {
 		{
 			"<leader>sr",
-			mode = { "n", "v" },
+			mode = { "n", "x" },
 			function()
 				require("grug-far").toggle_instance({
 					instanceName = "far",
@@ -47,7 +47,7 @@ return {
 		},
 		{
 			"<leader>sw",
-			mode = "v",
+			mode = "x",
 			function()
 				require("grug-far").open({ transient = true })
 			end,
@@ -55,7 +55,7 @@ return {
 		},
 		{
 			"<leader>sf",
-			mode = { "n", "v" },
+			mode = { "n", "x" },
 			function()
 				require("grug-far").open({
 					transient = true,
@@ -66,7 +66,7 @@ return {
 		},
 		{
 			"<leader>ss",
-			mode = "v",
+			mode = "x",
 			function()
 				require("grug-far").open({
 					transient = true,

@@ -66,7 +66,7 @@ return {
 			end,
 			desc = "Add current buffer",
 		},
-		{ "<leader>as", "<cmd>ClaudeCodeSend<cr>", mode = "v", desc = "Send to Claude" },
+		{ "<leader>as", "<cmd>ClaudeCodeSend<cr>", mode = "x", desc = "Send to Claude" },
 		{
 			"<leader>as",
 			"<cmd>ClaudeCodeTreeAdd<cr>",

@@ -17,17 +17,27 @@ return {
 			end,
 			desc = "Git Stage Hunk",
 		},
+		-- In diff windows fall back to Vim's native ]c/[c. codediff.nvim sets its own
+		-- buffer-local ]c/[c in its diff tab, which take precedence over these.
 		{
-			"]h",
+			"]c",
 			function()
-				require("gitsigns").nav_hunk("next")
+				if vim.wo.diff then
+					vim.cmd.normal({ "]c", bang = true })
+				else
+					require("gitsigns").nav_hunk("next")
+				end
 			end,
 			desc = "Git Next Hunk",
 		},
 		{
-			"[h",
+			"[c",
 			function()
-				require("gitsigns").nav_hunk("prev")
+				if vim.wo.diff then
+					vim.cmd.normal({ "[c", bang = true })
+				else
+					require("gitsigns").nav_hunk("prev")
+				end
 			end,
 			desc = "Git Previous Hunk",
 		},
