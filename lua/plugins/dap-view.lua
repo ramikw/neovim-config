@@ -3,7 +3,7 @@ return {
 		"igorlfs/nvim-dap-view",
 		keys = {
 			{
-				"<leader>dv",
+				"<leader>dt",
 				function()
 					require("dap-view").toggle()
 				end,
