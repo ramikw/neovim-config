@@ -55,6 +55,18 @@ return {
 			enabled = true,
 		},
 		picker = {
+			win = {
+				input = {
+					keys = {
+						["<C-l>"] = { "clear_input", mode = { "i", "n" } },
+					},
+				},
+			},
+			actions = {
+				clear_input = function(picker)
+					picker.input:set("", "")
+				end,
+			},
 			sources = {
 				explorer = {
 					hidden = true,
