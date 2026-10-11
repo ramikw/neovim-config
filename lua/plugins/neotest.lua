@@ -70,6 +70,48 @@ return {
 			},
 			{ "<leader>ts", custom_functions.toggle_test_summary, desc = "Toggle test summary" },
 			{ "<leader>tm", custom_functions.run_marked_tests, desc = "Run marked tests" },
+			{
+				"<leader>tt",
+				function()
+					require("neotest").run.run()
+				end,
+				desc = "Run Nearest Test",
+			},
+			{
+				"<leader>tf",
+				function()
+					require("neotest").run.run(vim.fn.expand("%"))
+				end,
+				desc = "Run File Tests",
+			},
+			{
+				"<leader>tl",
+				function()
+					require("neotest").run.run_last()
+				end,
+				desc = "Run Last Test",
+			},
+			{
+				"<leader>tS",
+				function()
+					require("neotest").run.stop()
+				end,
+				desc = "Stop Tests",
+			},
+			{
+				"]f",
+				function()
+					require("neotest").jump.next({ status = "failed" })
+				end,
+				desc = "Next Failed Test",
+			},
+			{
+				"[f",
+				function()
+					require("neotest").jump.prev({ status = "failed" })
+				end,
+				desc = "Prev Failed Test",
+			},
 		},
 	},
 }
