@@ -9,7 +9,7 @@ return {
 			-- Still needed even that the repo claims it is not.
 			"antoinemadec/FixCursorHold.nvim",
 			"nvim-treesitter/nvim-treesitter",
-			"nsidorenco/neotest-vstest",
+			"ramikw/neotest-vstest",
 			"nvim-neotest/neotest-python",
 			"nvim-neotest/neotest-jest",
 			"marilari88/neotest-vitest",

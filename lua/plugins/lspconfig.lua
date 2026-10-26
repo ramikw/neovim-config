@@ -64,6 +64,10 @@ return {
 				},
 			})
 
+			-- Inlay hints
+
+			vim.lsp.inlay_hint.enable(true)
+
 			require("ufo").setup()
 		end,
 		keys = {

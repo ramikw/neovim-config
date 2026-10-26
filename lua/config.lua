@@ -38,7 +38,7 @@ vim.opt.ignorecase = true
 
 vim.opt.title = true
 vim.opt.titlelen = 0 -- do not shorten title
-vim.opt.titlestring = "nvim %{expand('%:p')}"
+vim.opt.titlestring = "nvim %{expand('%:p') != '' ? expand('%:p') : fnamemodify(getcwd(), ':~')}" -- fall back to cwd when no file is open
 
 -- Format alias
 
