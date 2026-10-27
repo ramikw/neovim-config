@@ -10,18 +10,46 @@ return {
 	},
 	keys = {
 		{
-			"<leader>p",
+			"<leader>xx",
 			function()
-				require("trouble").open({ mode = "diagnostics", focus = true })
+				require("trouble").toggle({ mode = "diagnostics", focus = true })
 			end,
-			desc = "Open Project Diagnostics",
+			desc = "Diagnostics (Trouble)",
 		},
 		{
-			"<leader>x",
+			"<leader>xX",
 			function()
-				require("trouble").open({ mode = "diagnostics", focus = true, filter = { buf = 0 } })
+				require("trouble").toggle({ mode = "diagnostics", focus = true, filter = { buf = 0 } })
 			end,
-			desc = "Open Buffer Diagnostics",
+			desc = "Buffer Diagnostics (Trouble)",
+		},
+		{
+			"<leader>cs",
+			function()
+				require("trouble").toggle({ mode = "symbols", focus = true })
+			end,
+			desc = "Symbols (Trouble)",
+		},
+		{
+			"<leader>cl",
+			function()
+				require("trouble").toggle({ mode = "lsp", focus = true, win = { position = "right" } })
+			end,
+			desc = "LSP Definitions / references / ... (Trouble)",
+		},
+		{
+			"<leader>xL",
+			function()
+				require("trouble").toggle({ mode = "loclist" })
+			end,
+			desc = "Location List (Trouble)",
+		},
+		{
+			"<leader>xQ",
+			function()
+				require("trouble").toggle({ mode = "qflist" })
+			end,
+			desc = "Quickfix List (Trouble)",
 		},
 	},
 }
