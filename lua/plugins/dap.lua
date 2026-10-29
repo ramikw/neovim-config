@@ -205,8 +205,21 @@ return {
 			}
 		end
 
-		vim.fn.sign_define("DapBreakpoint", { text = "🟥", texthl = "", linehl = "", numhl = "" })
-		vim.fn.sign_define("DapStopped", { text = "▶️", texthl = "", linehl = "", numhl = "" })
+		-- VS Code codicons, so the gutter matches VS Code's debugger
+		vim.api.nvim_set_hl(0, "DapBreak", { fg = "#e51400" })
+		vim.api.nvim_set_hl(0, "DapStop", { fg = "#ffcc00" })
+		vim.api.nvim_set_hl(0, "DapStoppedLine", { default = true, link = "Visual" })
+
+		local dap_signs = {
+			Breakpoint = { "\u{ea71}", "DapBreak" },
+			BreakpointCondition = { "\u{eaa7}", "DapBreak" },
+			BreakpointRejected = { "\u{eb8c}", "DapBreak" },
+			LogPoint = { "\u{eaab}", "DapBreak" },
+			Stopped = { "\u{eb8b}", "DapStop", "DapStoppedLine" },
+		}
+		for name, sign in pairs(dap_signs) do
+			vim.fn.sign_define("Dap" .. name, { text = sign[1], texthl = sign[2], linehl = sign[3] or "", numhl = "" })
+		end
 
 		-- Adding overseer integration
 		require("overseer").enable_dap()
