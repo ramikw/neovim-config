@@ -8,19 +8,7 @@ return {
 		-- terminal is typed as the full ClaudeCodeTerminalConfig, not a partial
 		---@diagnostic disable-next-line: missing-fields
 		terminal = {
-			split_width_percentage = 0.23,
-			snacks_win_opts = {
-				keys = {
-					remove_focus = {
-						"<C-w>w",
-						function()
-							vim.cmd("wincmd p")
-						end,
-						mode = "t",
-						desc = "Remove focus",
-					},
-				},
-			},
+			split_width_percentage = 0.24,
 		},
 	},
 	keys = {
