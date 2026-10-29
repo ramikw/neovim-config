@@ -8,7 +8,7 @@ return {
 		-- terminal is typed as the full ClaudeCodeTerminalConfig, not a partial
 		---@diagnostic disable-next-line: missing-fields
 		terminal = {
-			split_width_percentage = 0.24,
+			split_width_percentage = 0.27,
 		},
 	},
 	keys = {
