@@ -51,6 +51,7 @@ return {
 				},
 				signs = false,
 				update_in_insert = false,
+				severity_sort = true,
 			})
 		end,
 	},

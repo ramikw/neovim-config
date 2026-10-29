@@ -119,4 +119,10 @@ return {
 		event = "VeryLazy",
 		dependencies = "nvim-treesitter/nvim-treesitter",
 	},
+	{
+		-- Pins the current function/class header to the top of the window
+		"nvim-treesitter/nvim-treesitter-context",
+		event = { "BufReadPre", "BufNewFile" },
+		opts = { max_lines = 3 },
+	},
 }

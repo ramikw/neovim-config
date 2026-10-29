@@ -2,9 +2,9 @@ vim.opt.termguicolors = true
 
 -- Lines
 
-vim.wo.number = true
-vim.wo.relativenumber = true
-vim.wo.cursorline = true
+vim.opt.number = true
+vim.opt.relativenumber = true
+vim.opt.cursorline = true
 
 -- Vertical line
 
@@ -17,6 +17,19 @@ vim.opt.swapfile = false
 -- Scrolloff
 
 vim.opt.scrolloff = 5
+vim.opt.sidescrolloff = 8
+
+-- Scroll by screen line on wrapped text
+
+vim.opt.smoothscroll = true
+
+-- Keep text in place when splits open/close
+
+vim.opt.splitkeep = "screen"
+
+-- Mode is already shown by lualine
+
+vim.opt.showmode = false
 
 vim.api.nvim_create_autocmd("FileType", {
 	pattern = "ui",
