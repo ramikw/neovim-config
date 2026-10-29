@@ -88,17 +88,11 @@ return {
 						list = {
 							keys = {
 								["E"] = "explorer_focus",
-								["A"] = "explorer_add_dotnet",
 								["<CR>"] = "confirm_pick_win",
 							},
 						},
 					},
 					actions = {
-						-- "a" stays snacks' plain file/dir add, "A" scaffolds from
-						-- a dotnet template and registers it in the solution
-						explorer_add_dotnet = function(picker)
-							require("easy-dotnet").create_item(picker:dir())
-						end,
 						-- only prompt for a window when actually opening a file;
 						-- toggling a folder shouldn't trigger the window picker
 						confirm_pick_win = function(picker, item)

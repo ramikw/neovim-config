@@ -6,7 +6,7 @@ return {
 		ft = "lua",
 		opts = {
 			library = {
-				{ path = "luvit-meta/library", words = { "vim%.uv" } },
+				{ path = "${3rd}/luv/library", words = { "vim%.uv" } },
 				"powershell.nvim",
 				"rustaceanvim",
 				"nvim-dap-view",
@@ -43,8 +43,12 @@ return {
 		ft = "tex",
 		config = function()
 			vim.g.vimtex_quickfix_open_on_warning = 0
-			vim.g.vimtex_view_general_viewer = "SumatraPDF"
-			vim.g.vimtex_view_general_options = "-reuse-instance -forward-search @tex @line @pdf"
+			if require("custom-functions").is_windows() then
+				vim.g.vimtex_view_general_viewer = "SumatraPDF"
+				vim.g.vimtex_view_general_options = "-reuse-instance -forward-search @tex @line @pdf"
+			else
+				vim.g.vimtex_view_method = "zathura"
+			end
 		end,
 	},
 }

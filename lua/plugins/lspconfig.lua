@@ -46,7 +46,11 @@ return {
 			})
 
 			vim.lsp.config("bicep", {
-				cmd = { vim.fn.expand("$MASON/packages/bicep-lsp/bicep-lsp.cmd") },
+				cmd = {
+					require("custom-functions").is_windows() and vim.fn.expand(
+						"$MASON/packages/bicep-lsp/bicep-lsp.cmd"
+					) or vim.fn.expand("$MASON/packages/bicep-lsp/bicep-lsp"),
+				},
 			})
 
 			vim.lsp.config("roslyn", {

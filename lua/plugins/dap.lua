@@ -112,7 +112,9 @@ return {
 
 		-- Python
 
-		local debugpy = vim.fn.expand("$MASON/packages/debugpy/venv/Scripts/python.exe")
+		local debugpy = custom_function.is_windows()
+				and vim.fn.expand("$MASON/packages/debugpy/venv/Scripts/python.exe")
+			or vim.fn.expand("$MASON/packages/debugpy/venv/bin/python")
 		require("dap-python").setup(debugpy)
 
 		-- C/C++
