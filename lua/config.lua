@@ -60,15 +60,54 @@ vim.opt.inccommand = "split"
 
 vim.opt.confirm = true
 
--- System clipboard (uses win32yank.exe on WSL)
+-- System clipboard (uses win32yank.exe on WSL). Scheduled because detecting
+-- the clipboard provider is slow and would otherwise block startup.
 
-vim.opt.clipboard = "unnamedplus"
+vim.schedule(function()
+	vim.opt.clipboard = "unnamedplus"
+end)
 
 -- Highlight on yank
 
 vim.api.nvim_create_autocmd("TextYankPost", {
 	callback = function()
 		vim.hl.on_yank()
+	end,
+})
+
+-- Reload files changed outside nvim (e.g. by Claude Code or git)
+
+vim.api.nvim_create_autocmd({ "FocusGained", "TermClose", "TermLeave" }, {
+	callback = function()
+		if vim.o.buftype ~= "nofile" then
+			vim.cmd("checktime")
+		end
+	end,
+})
+
+-- Restore the cursor to its last position when reopening a file. Skipped for
+-- commit/rebase messages, which should always start at the top.
+
+vim.api.nvim_create_autocmd("BufReadPost", {
+	callback = function(args)
+		if vim.tbl_contains({ "gitcommit", "gitrebase" }, vim.bo[args.buf].filetype) then
+			return
+		end
+		local mark = vim.api.nvim_buf_get_mark(args.buf, '"')
+		if mark[1] > 0 and mark[1] <= vim.api.nvim_buf_line_count(args.buf) then
+			pcall(vim.api.nvim_win_set_cursor, 0, mark)
+		end
+	end,
+})
+
+-- Equalize splits when the terminal is resized. Snacks splits (explorer,
+-- terminal, Claude) set winfixwidth/winfixheight, so they keep their size.
+
+vim.api.nvim_create_autocmd("VimResized", {
+	callback = function()
+		local current_tab = vim.fn.tabpagenr()
+		vim.cmd("tabdo wincmd =")
+		vim.cmd("tabnext " .. current_tab)
 	end,
 })
 
@@ -80,9 +119,14 @@ vim.opt.titlestring = "nvim %{expand('%:p') != '' ? expand('%:p') : fnamemodify(
 
 -- Format alias
 
-vim.api.nvim_create_user_command("Format", function()
-	vim.lsp.buf.format()
-end, {})
+vim.api.nvim_create_user_command("Format", function(args)
+	local range = nil
+	if args.count ~= -1 then
+		local end_line = vim.api.nvim_buf_get_lines(0, args.line2 - 1, args.line2, true)[1]
+		range = { start = { args.line1, 0 }, ["end"] = { args.line2, end_line:len() } }
+	end
+	require("conform").format({ async = true, range = range })
+end, { range = true })
 
 -- Mouse
 
@@ -95,6 +139,8 @@ vim.cmd([[
 
 vim.o.winborder = "rounded"
 vim.opt.wrap = true
+vim.opt.linebreak = true
+vim.opt.breakindent = true
 
 -- Hide the tabline (e.g. shown by codediff.nvim's diff tab)
 

@@ -1,8 +1,9 @@
 -- Visual/UI enhancements
 
 return {
-	{ "brenoprata10/nvim-highlight-colors", opts = {} },
-	{ "HiPhish/rainbow-delimiters.nvim" },
+	-- BufReadPre so both are loaded before the first buffer's FileType/BufEnter
+	{ "brenoprata10/nvim-highlight-colors", event = { "BufReadPre", "BufNewFile" }, opts = {} },
+	{ "HiPhish/rainbow-delimiters.nvim", event = { "BufReadPre", "BufNewFile" } },
 	{
 		"hedyhli/outline.nvim",
 		lazy = true,

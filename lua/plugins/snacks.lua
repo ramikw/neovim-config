@@ -50,6 +50,8 @@ return {
 	---@type snacks.Config
 	opts = {
 		bigfile = { enabled = true },
+		quickfile = { enabled = true },
+		statuscolumn = { enabled = true },
 		input = { enabled = true },
 		explorer = { enabled = true },
 		dashboard = {

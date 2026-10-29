@@ -28,6 +28,7 @@ return {
 				"html", -- HTML
 				"jdtls", -- Java
 				"jsonls", -- JSON
+				"lua_ls", -- Lua
 				"postgres_lsp", -- PostgreSQL
 				"powershell_es", -- PowerShell
 				"protols", -- Protocol buffer
@@ -64,11 +65,15 @@ return {
 				ensure_installed = {
 					"bibtex-tidy",
 					"codelldb",
+					"csharpier",
 					"debugpy",
 					"firefox-debug-adapter",
 					"js-debug-adapter",
 					"netcoredbg",
+					"prettierd",
 					"roslyn-language-server",
+					"shfmt",
+					"stylua",
 				},
 			})
 		end,

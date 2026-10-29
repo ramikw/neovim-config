@@ -97,15 +97,23 @@ return {
 			end)
 
 			vim.api.nvim_create_autocmd("FileType", {
-				callback = function()
+				callback = function(args)
 					-- Enable treesitter highlighting and disable regex syntax
-					pcall(vim.treesitter.start)
+					if not pcall(vim.treesitter.start, args.buf) then
+						return
+					end
+					-- Treesitter indentation, only for languages that ship an indents
+					-- query; the rest keep Vim's regex indent scripts
+					local lang = vim.treesitter.language.get_lang(args.match)
+					if lang and vim.treesitter.query.get(lang, "indents") then
+						vim.bo[args.buf].indentexpr = "v:lua.require'nvim-treesitter'.indentexpr()"
+					end
 				end,
 			})
 		end,
 	},
 	{
-		-- Used by surround plugin
+		-- Provides the @function/@class/... queries used by mini.ai (see plugins/mini.lua)
 		"nvim-treesitter/nvim-treesitter-textobjects",
 		branch = "main",
 		event = "VeryLazy",
