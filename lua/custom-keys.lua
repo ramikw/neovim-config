@@ -24,6 +24,13 @@ map("n", "<C-k>", "<C-w>k", { desc = "Go to Upper Window", remap = true })
 map("n", "<C-l>", "<C-w>l", { desc = "Go to Right Window", remap = true })
 map("n", "<leader>wd", "<C-w>c", { desc = "Delete Window", remap = true })
 
+-- Leave any terminal window from terminal mode (snacks terminals override these buffer-locally)
+
+map("t", "<C-h>", "<Cmd>wincmd h<CR>", { desc = "Go to Left Window" })
+map("t", "<C-j>", "<Cmd>wincmd j<CR>", { desc = "Go to Lower Window" })
+map("t", "<C-k>", "<Cmd>wincmd k<CR>", { desc = "Go to Upper Window" })
+map("t", "<C-l>", "<Cmd>wincmd l<CR>", { desc = "Go to Right Window" })
+
 -- Move lines up and down
 
 map("n", "<A-j>", "<cmd>:m .+1<CR>==", defaultMapOptions)
