@@ -1,70 +1,46 @@
+-- Mirrors LazyVim's extras/coding/blink.lua, minus the LazyVim-only helpers
+-- (LazyVim.cmp.expand/map, LazyVim icons, blink.compat sources, AI hooks).
 return {
 	"saghen/blink.cmp",
-	version = "1.*",
+	version = "*",
 	event = { "InsertEnter", "CmdlineEnter" },
 	dependencies = {
-		{ "xzbdmw/colorful-menu.nvim", opts = {} },
 		"rafamadriz/friendly-snippets",
 	},
 	---@module 'blink.cmp'
 	---@type blink.cmp.Config
 	opts = {
-		keymap = {
-			preset = "none",
-			["<Tab>"] = { "select_next", "fallback" },
-			["<S-Tab>"] = { "select_prev", "fallback" },
-			["<CR>"] = { "accept", "fallback" },
-			["<C-e>"] = { "hide", "fallback" },
-			["<C-c>"] = { "cancel", "fallback" },
-			["<C-b>"] = { "scroll_documentation_up", "fallback" },
-			["<C-f>"] = { "scroll_documentation_down", "fallback" },
-			["<C-n>"] = { "show", "fallback" },
+		snippets = {
+			preset = "default",
+		},
+
+		appearance = {
+			use_nvim_cmp_as_default = false,
+			nerd_font_variant = "mono",
 		},
 
 		completion = {
+			accept = {
+				auto_brackets = {
+					enabled = true,
+				},
+			},
 			menu = {
 				draw = {
-					-- We don't need label_description now because label and label_description are already
-					-- combined together in label by colorful-menu.nvim.
-					columns = { { "kind_icon" }, { "label", gap = 1 } },
-					components = {
-						label = {
-							text = function(ctx)
-								return require("colorful-menu").blink_components_text(ctx)
-							end,
-							highlight = function(ctx)
-								return require("colorful-menu").blink_components_highlight(ctx)
-							end,
-						},
-					},
+					treesitter = { "lsp" },
 				},
 			},
 			documentation = {
 				auto_show = true,
 				auto_show_delay_ms = 200,
-				window = {
-					border = "rounded",
-				},
-			},
-			accept = {
-				auto_brackets = { enabled = true },
 			},
 		},
-
-		cmdline = {
-			enabled = true,
-			completion = {
-				-- blink only shows the cmdline menu inside the command window by
-				-- default, falling back to ghost text on the ":" line itself.
-				menu = { auto_show = true },
-				ghost_text = { enabled = false },
-			},
-		},
-
-		fuzzy = { implementation = "prefer_rust_with_warning" },
 
 		sources = {
-			default = { "lazydev", "lsp", "path", "snippets", "buffer" },
+			default = { "lsp", "path", "snippets", "buffer" },
+			per_filetype = {
+				lua = { inherit_defaults = true, "lazydev" },
+			},
 			providers = {
 				lazydev = {
 					name = "LazyDev",
@@ -72,6 +48,33 @@ return {
 					score_offset = 100,
 				},
 			},
+		},
+
+		cmdline = {
+			enabled = true,
+			keymap = {
+				preset = "cmdline",
+				["<Right>"] = false,
+				["<Left>"] = false,
+			},
+			completion = {
+				list = { selection = { preselect = true } },
+				menu = {
+					auto_show = true,
+				},
+				ghost_text = { enabled = true },
+			},
+		},
+
+		keymap = {
+			-- "default" preset: only <C-y> accepts (with fallback), <CR> stays a newline
+			preset = "default",
+			-- <C-space> is taken by tmux, so <C-n> opens the menu when it's closed
+			["<C-space>"] = false,
+			["<C-n>"] = { "select_next", "show" },
+			["<C-p>"] = { "select_prev", "show" },
+			["<C-e>"] = { "hide", "fallback" },
+			["<C-c>"] = { "cancel", "fallback" },
 		},
 	},
 	opts_extend = { "sources.default" },
