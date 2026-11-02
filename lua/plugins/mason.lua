@@ -12,6 +12,8 @@ return {
 		event = "VeryLazy",
 		dependencies = {
 			"mason-org/mason.nvim",
+			-- Ensures lsp/*.lua and the vim.lsp.config("*") overrides exist before enabling
+			"neovim/nvim-lspconfig",
 		},
 		config = function()
 			local packages = {

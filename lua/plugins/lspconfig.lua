@@ -8,31 +8,19 @@ return {
 			"kevinhwang91/nvim-ufo",
 			"kevinhwang91/promise-async",
 		},
-		lazy = false,
+		event = { "BufReadPre", "BufNewFile" },
 		config = function()
-			local capabilities = vim.tbl_deep_extend(
-				"force",
-				vim.lsp.protocol.make_client_capabilities(),
-				require("blink.cmp").get_lsp_capabilities(),
-				{
-					textDocument = {
-						foldingRange = { dynamicRegistration = false, lineFoldingOnly = true },
-						completion = {
-							completionItem = { snippetSupport = true },
-						},
-					},
-				}
-			)
+			-- Neovim merges its default capabilities in on its own. blink's are
+			-- fetched explicitly so the ufo folding override merges with them
+			-- (requiring blink.cmp here also loads it).
 			vim.lsp.config("*", {
-				capabilities = capabilities,
+				capabilities = require("blink.cmp").get_lsp_capabilities({
+					textDocument = {
+						-- nvim-ufo
+						foldingRange = { dynamicRegistration = false, lineFoldingOnly = true },
+					},
+				}),
 			})
-
-			-- Folding
-
-			vim.opt.foldcolumn = "0"
-			vim.opt.foldlevel = 99
-			vim.opt.foldlevelstart = 99
-			vim.opt.foldenable = true
 
 			-- LSP
 

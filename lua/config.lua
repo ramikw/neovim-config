@@ -39,6 +39,13 @@ vim.api.nvim_create_autocmd("FileType", {
 	end,
 })
 
+-- Folding
+
+vim.opt.foldcolumn = "0"
+vim.opt.foldlevel = 99
+vim.opt.foldlevelstart = 99
+vim.opt.foldenable = true
+
 -- Autocomplete size
 
 vim.opt.pumwidth = 50
@@ -101,14 +108,29 @@ vim.api.nvim_create_autocmd({ "FocusGained", "TermClose", "TermLeave" }, {
 -- Restore the cursor to its last position when reopening a file. Skipped for
 -- commit/rebase messages, which should always start at the top.
 
-vim.api.nvim_create_autocmd("BufReadPost", {
+-- Runs on BufWinEnter rather than BufReadPost so buffers loaded in the
+-- background (LSP edits, grug-far, gitsigns) still get restored once they are
+-- first shown in a window.
+
+vim.api.nvim_create_autocmd("BufWinEnter", {
 	callback = function(args)
-		if vim.tbl_contains({ "gitcommit", "gitrebase" }, vim.bo[args.buf].filetype) then
+		local buf = args.buf
+		local win = vim.api.nvim_get_current_win()
+		-- Only restore the first time the buffer is shown in a normal window, so
+		-- later splits, :e! and checktime reloads keep the current position.
+		-- Floating windows (picker previews) don't count.
+		if
+			vim.b[buf].last_loc_restored
+			or vim.api.nvim_win_get_buf(win) ~= buf
+			or vim.api.nvim_win_get_config(win).relative ~= ""
+			or vim.tbl_contains({ "gitcommit", "gitrebase" }, vim.bo[buf].filetype)
+		then
 			return
 		end
-		local mark = vim.api.nvim_buf_get_mark(args.buf, '"')
-		if mark[1] > 0 and mark[1] <= vim.api.nvim_buf_line_count(args.buf) then
-			pcall(vim.api.nvim_win_set_cursor, 0, mark)
+		vim.b[buf].last_loc_restored = true
+		local mark = vim.api.nvim_buf_get_mark(buf, '"')
+		if mark[1] > 0 and mark[1] <= vim.api.nvim_buf_line_count(buf) then
+			pcall(vim.api.nvim_win_set_cursor, win, mark)
 		end
 	end,
 })
