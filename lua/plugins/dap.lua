@@ -39,11 +39,9 @@ return {
 		-- C#
 		local coreclr_adapter = {
 			type = "executable",
-			command = custom_function.mason_package(
-				"netcoredbg",
-				"netcoredbg",
-				custom_function.is_windows() and "netcoredbg.exe" or "netcoredbg"
-			),
+			command = custom_function.is_windows()
+					and custom_function.mason_package("netcoredbg", "netcoredbg", "netcoredbg.exe")
+				or custom_function.mason_package("netcoredbg", "netcoredbg"),
 			args = { "--interpreter=vscode" },
 		}
 		-- function form so configs coming from .vscode/launch.json (see vscode-launch.lua)
