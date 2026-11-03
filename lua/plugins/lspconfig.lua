@@ -1,13 +1,6 @@
 return {
 	{
 		"neovim/nvim-lspconfig",
-		dependencies = {
-			"b0o/schemastore.nvim",
-
-			-- nvim-ufo
-			"kevinhwang91/nvim-ufo",
-			"kevinhwang91/promise-async",
-		},
 		event = { "BufReadPre", "BufNewFile" },
 		config = function()
 			-- Neovim merges its default capabilities in on its own. blink's are
@@ -24,21 +17,25 @@ return {
 
 			-- LSP
 
+			local json_schemas
 			vim.lsp.config("jsonls", {
 				settings = {
 					json = {
-						schemas = require("schemastore").json.schemas(),
 						validate = { enable = true },
 					},
 				},
+				-- Build the SchemaStore table lazily, once, when the first jsonls client starts
+				before_init = function(_, config)
+					json_schemas = json_schemas or require("schemastore").json.schemas()
+					config.settings.json.schemas = json_schemas
+				end,
 			})
 
+			-- lspconfig ships no default cmd for bicep. Servers are enabled by
+			-- mason-lspconfig after mason has put its bin dir on PATH, so the
+			-- bare name resolves to mason's shim (.cmd on Windows).
 			vim.lsp.config("bicep", {
-				cmd = {
-					require("custom-functions").is_windows() and vim.fn.expand(
-						"$MASON/packages/bicep-lsp/bicep-lsp.cmd"
-					) or vim.fn.expand("$MASON/packages/bicep-lsp/bicep-lsp"),
-				},
+				cmd = { "bicep-lsp" },
 			})
 
 			vim.lsp.config("roslyn", {
@@ -59,8 +56,6 @@ return {
 			-- Inlay hints
 
 			vim.lsp.inlay_hint.enable(true)
-
-			require("ufo").setup()
 		end,
 		keys = {
 			{
@@ -147,9 +142,19 @@ return {
 				end,
 				desc = "Previous Error",
 			},
-
-			-- Folds keys
-
+		},
+	},
+	{
+		"b0o/schemastore.nvim",
+		lazy = true,
+	},
+	{
+		"kevinhwang91/nvim-ufo",
+		dependencies = { "kevinhwang91/promise-async" },
+		-- Attaches to the buffers already open when it loads
+		event = "VeryLazy",
+		opts = {},
+		keys = {
 			{
 				"zR",
 				function()

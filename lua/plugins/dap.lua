@@ -39,9 +39,11 @@ return {
 		-- C#
 		local coreclr_adapter = {
 			type = "executable",
-			command = custom_function.is_windows() and vim.fn.expand(
-				"$MASON/packages/netcoredbg/netcoredbg/netcoredbg.exe"
-			) or vim.fn.expand("$MASON/packages/netcoredbg/netcoredbg"),
+			command = custom_function.mason_package(
+				"netcoredbg",
+				"netcoredbg",
+				custom_function.is_windows() and "netcoredbg.exe" or "netcoredbg"
+			),
 			args = { "--interpreter=vscode" },
 		}
 		-- function form so configs coming from .vscode/launch.json (see vscode-launch.lua)
@@ -81,7 +83,7 @@ return {
 		dap.adapters.firefox = {
 			type = "executable",
 			command = "node",
-			args = { vim.fn.expand("$MASON/packages/firefox-debug-adapter/dist/adapter.bundle.js") },
+			args = { custom_function.mason_package("firefox-debug-adapter", "dist", "adapter.bundle.js") },
 		}
 		local pwa_node_adapter = {
 			type = "server",
@@ -90,7 +92,7 @@ return {
 			executable = {
 				command = "node",
 				args = {
-					vim.fn.expand("$MASON/packages/js-debug-adapter/js-debug/src/dapDebugServer.js"),
+					custom_function.mason_package("js-debug-adapter", "js-debug", "src", "dapDebugServer.js"),
 					"${port}",
 				},
 			},
@@ -113,8 +115,8 @@ return {
 		-- Python
 
 		local debugpy = custom_function.is_windows()
-				and vim.fn.expand("$MASON/packages/debugpy/venv/Scripts/python.exe")
-			or vim.fn.expand("$MASON/packages/debugpy/venv/bin/python")
+				and custom_function.mason_package("debugpy", "venv", "Scripts", "python.exe")
+			or custom_function.mason_package("debugpy", "venv", "bin", "python")
 		require("dap-python").setup(debugpy)
 
 		-- C/C++

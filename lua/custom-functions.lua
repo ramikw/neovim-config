@@ -118,6 +118,14 @@ function M.is_windows()
 	return vim.fn.has("win32") == 1
 end
 
+-- Path to an installed mason package. Uses $MASON once mason has set it (which
+-- respects install_root_dir), and falls back to mason's default root when called
+-- before mason loads.
+function M.mason_package(name, ...)
+	local root = vim.env.MASON or vim.fs.joinpath(vim.fn.stdpath("data"), "mason")
+	return vim.fs.joinpath(root, "packages", name, ...)
+end
+
 function M.is_wsl()
 	return vim.fn.has("wsl") == 1
 end
