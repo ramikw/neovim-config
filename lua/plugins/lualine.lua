@@ -29,13 +29,17 @@ return {
 					end,
 				},
 				{
-					-- full path of the item under the cursor in the snacks explorer
+					-- name of the item under the cursor in the snacks explorer, with its file/folder icon
 					function()
 						local e = require("snacks").picker.get({ source = "explorer" })[1]
 						local item = e and e:current()
-						return item and item.file and vim.fn.fnamemodify(item.file, ":~:.") or ""
+						if not (item and item.file) then
+							return ""
+						end
+						local name = vim.fn.fnamemodify(item.file, ":t")
+						return name
 					end,
-					icon = "󰙅",
+					icon = "\u{f0142}",
 					cond = function()
 						return vim.bo.filetype == "snacks_picker_list"
 					end,
