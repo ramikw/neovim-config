@@ -25,7 +25,19 @@ return {
 						readonly = "",
 					},
 					cond = function()
-						return vim.bo.filetype ~= "snacks_terminal"
+						return vim.bo.filetype ~= "snacks_terminal" and vim.bo.filetype ~= "snacks_picker_list"
+					end,
+				},
+				{
+					-- full path of the item under the cursor in the snacks explorer
+					function()
+						local e = require("snacks").picker.get({ source = "explorer" })[1]
+						local item = e and e:current()
+						return item and item.file and vim.fn.fnamemodify(item.file, ":~:.") or ""
+					end,
+					icon = "󰙅",
+					cond = function()
+						return vim.bo.filetype == "snacks_picker_list"
 					end,
 				},
 			},
