@@ -21,6 +21,14 @@ return {
 						i = { "@block.inner", "@conditional.inner", "@loop.inner" },
 					}),
 					u = ai.gen_spec.function_call(),
+					-- Whole buffer (vag, yag, ...), as in LazyVim
+					g = function()
+						local last = vim.fn.line("$")
+						return {
+							from = { line = 1, col = 1 },
+							to = { line = last, col = math.max(vim.fn.getline(last):len(), 1) },
+						}
+					end,
 				},
 			})
 			require("mini.hipatterns").setup({
