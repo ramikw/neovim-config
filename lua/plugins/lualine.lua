@@ -4,6 +4,7 @@ return {
 	dependencies = { "nvim-mini/mini.nvim" },
 	opts = {
 		options = {
+			theme = "gruvbox-material",
 			globalstatus = true,
 			component_separators = "",
 			section_separators = { left = "", right = "" },
@@ -53,7 +54,7 @@ return {
 					cond = function()
 						return vim.fn.reg_recording() ~= ""
 					end,
-					color = { fg = "#ff9e64" },
+					color = "DiagnosticWarn",
 				},
 				"diagnostics",
 				"overseer",

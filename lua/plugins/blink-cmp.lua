@@ -74,6 +74,23 @@ return {
 			["<C-p>"] = { "select_prev", "show" },
 			["<C-e>"] = { "hide", "fallback" },
 			["<C-c>"] = { "cancel", "fallback" },
+			-- snippet placeholders first, then tabout.nvim (acts as a normal Tab if nothing to jump)
+			["<Tab>"] = {
+				"snippet_forward",
+				function()
+					-- deferred: blink runs keymap fns inside an expr mapping, where moving the cursor is not allowed
+					vim.schedule(require("tabout").tabout)
+					return true
+				end,
+			},
+			-- snippet placeholders backwards first, then tabout.nvim backwards
+			["<S-Tab>"] = {
+				"snippet_backward",
+				function()
+					vim.schedule(require("tabout").taboutBack)
+					return true
+				end,
+			},
 		},
 	},
 	opts_extend = { "sources.default" },

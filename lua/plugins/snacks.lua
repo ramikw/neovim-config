@@ -139,7 +139,18 @@ return {
 		},
 		lazygit = {
 			enabled = true,
-			win = { height = 0.9, width = 0.9, border = "rounded" },
+			win = {
+				height = 0.9,
+				width = 0.9,
+				border = "rounded",
+				-- use the normal editor background instead of the float one
+				wo = { winhighlight = "NormalFloat:Normal,FloatBorder:Normal" },
+			},
+			-- default selection (Visual) is barely visible in gruvbox-material; this
+			-- teal-tinted grey fits the palette and keeps text readable
+			config = {
+				gui = { theme = { selectedLineBgColor = { "#3f4f4c" } } },
+			},
 		},
 	},
 
