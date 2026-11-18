@@ -5,6 +5,9 @@ return {
 	---@type PartialClaudeCodeConfig
 	---@diagnostic disable-next-line: missing-fields
 	opts = {
+		-- Copying in Claude printed "52;c;<base64>" into its input box when nvim runs inside
+		-- tmux. Hide tmux from Claude so it skips its tmux clipboard path.
+		env = { TMUX = "", TMUX_PANE = "" },
 		-- terminal is typed as the full ClaudeCodeTerminalConfig, not a partial
 		---@diagnostic disable-next-line: missing-fields
 		terminal = {
