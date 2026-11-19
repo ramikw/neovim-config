@@ -129,6 +129,7 @@ return {
 		terminal = {
 			win = {
 				height = 0.25,
+				wo = { winhighlight = "Normal:TerminalNormal,NormalNC:TerminalNormal,NormalFloat:TerminalNormal,FloatBorder:TerminalBorder,FloatTitle:TerminalBorder,SignColumn:TerminalNormal" },
 				keys = {
 					nav_h = { "<C-h>", term_nav("h"), desc = "Go to Left Window", expr = true, mode = "t" },
 					nav_j = { "<C-j>", term_nav("j"), desc = "Go to Lower Window", expr = true, mode = "t" },
@@ -143,13 +144,10 @@ return {
 				height = 0.9,
 				width = 0.9,
 				border = "rounded",
-				-- use the normal editor background instead of the float one
-				wo = { winhighlight = "NormalFloat:Normal,FloatBorder:Normal" },
-			},
-			-- default selection (Visual) is barely visible in gruvbox-material; this
-			-- teal-tinted grey fits the palette and keeps text readable
-			config = {
-				gui = { theme = { selectedLineBgColor = { "#3f4f4c" } } },
+				-- same background as other terminals (see gruvbox-material.lua)
+				wo = {
+					winhighlight = "Normal:TerminalNormal,NormalNC:TerminalNormal,NormalFloat:TerminalNormal,FloatBorder:TerminalBorder,FloatTitle:TerminalBorder,SignColumn:TerminalNormal",
+				},
 			},
 		},
 	},
