@@ -144,10 +144,6 @@ return {
 				height = 0.9,
 				width = 0.9,
 				border = "rounded",
-				-- same background as other terminals (see gruvbox-material.lua)
-				wo = {
-					winhighlight = "Normal:TerminalNormal,NormalNC:TerminalNormal,NormalFloat:TerminalNormal,FloatBorder:TerminalBorder,FloatTitle:TerminalBorder,SignColumn:TerminalNormal",
-				},
 			},
 		},
 	},
