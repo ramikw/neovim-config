@@ -27,6 +27,7 @@ return {
 					},
 					cond = function()
 						return vim.bo.filetype ~= "snacks_terminal" and vim.bo.filetype ~= "snacks_picker_list"
+							and vim.bo.filetype ~= "codediff-explorer"
 					end,
 				},
 				{
@@ -43,6 +44,25 @@ return {
 					icon = "\u{f0142}",
 					cond = function()
 						return vim.bo.filetype == "snacks_picker_list"
+					end,
+				},
+				{
+					-- name of the item under the cursor in the codediff explorer
+					function()
+						local explorer = require("codediff.ui.lifecycle").get_panel_view(vim.api.nvim_get_current_tabpage())
+						local node = explorer and explorer.tree and explorer.tree:get_node()
+						local data = node and node.data
+						if not data then
+							return ""
+						end
+						if data.type == "directory" then
+							return data.name or ""
+						end
+						return data.path and vim.fn.fnamemodify(data.path, ":t") or ""
+					end,
+					icon = "\u{f0142}",
+					cond = function()
+						return vim.bo.filetype == "codediff-explorer"
 					end,
 				},
 			},
