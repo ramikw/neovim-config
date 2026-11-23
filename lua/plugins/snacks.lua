@@ -41,7 +41,12 @@ return {
 				filter_func = function(window_ids)
 					return vim.tbl_filter(function(win)
 						local buf = vim.api.nvim_win_get_buf(win)
-						return vim.bo[buf].buftype == "" and not vim.bo[buf].filetype:find("^snacks")
+						local ft = vim.bo[buf].filetype
+						-- the startup dashboard is a valid target for opening a file
+						if ft == "snacks_dashboard" then
+							return true
+						end
+						return vim.bo[buf].buftype == "" and not ft:find("^snacks")
 					end, window_ids)
 				end,
 			},

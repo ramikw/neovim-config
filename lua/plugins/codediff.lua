@@ -15,7 +15,7 @@ return {
 			layout = "side-by-side",
 		},
 		explorer = {
-			width = 30,
+			width = 40,
 			view_mode = "tree",
 		},
 	},
