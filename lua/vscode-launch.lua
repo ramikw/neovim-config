@@ -45,7 +45,7 @@ end
 -- How long to wait for a preLaunchTask before giving up. Background/watch tasks
 -- signal readiness through their problemMatcher, so this only fires when the task
 -- is genuinely stuck (bad shell command, matcher that never hits, hung process).
-M.prelaunch_timeout_ms = 120000
+M.prelaunch_timeout_ms = 360000 -- 6 minutes
 
 local function run_compound(data, compound)
 	local configs_by_name = {}
